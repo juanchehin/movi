@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 
 import { PagesComponent } from './pages.component';
 
 import { GraficasComponent } from './graficas/graficas.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {SelectModule} from 'ng2-select';
+// import {SelectModule} from 'ng2-select';
 
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -42,7 +42,7 @@ import { ProfesionalesComponent } from './personas//profesionales/profesionales.
 import { EditarprofesionalComponent } from './personas//profesionales/editarprofesional.component';
 import { DashboardComponent } from '../shared/dashboard/dashboard.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
-import { WebcamModule } from 'ngx-webcam';
+// import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
 
 
@@ -85,11 +85,11 @@ import { HistoricoComponent } from './asistencias/historico.component';
         PlanComponent,
     ],
     imports: [
-        WebcamModule,
+        // WebcamModule,
         SharedModule,
-        SelectModule,
+        // SelectModule,
         PAGES_ROUTES,
-        ChartsModule,
+        // ChartsModule,
         FormsModule,
         CommonModule,
         ReactiveFormsModule

@@ -18,15 +18,15 @@ export class MedicionesComponent implements OnInit {
 
   persona: Persona[] = [];
   profesionales: Profesional[] = [];
-  mediciones: Medicion;
-  param: number;
+  mediciones!: Medicion;
+  param!: number;
   termino: number;
-  IdProfesinal: string;
+  IdProfesinal!: string;
   IdPersona = '0';
 
-  forma: FormGroup;
+  forma!: FormGroup;
   desde = 0;
-  date: string;
+  date: any;
 
 
   totalRegistros = 0;

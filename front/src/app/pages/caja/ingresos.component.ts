@@ -33,7 +33,7 @@ export class IngresosComponent implements OnInit {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaInicio(nuevaFechaInicio) {
+cambiosFechaInicio(nuevaFechaInicio: any) {
 
   if (nuevaFechaInicio > this.FechaFin) {
     // this.FechaInicio = nuevaFechaInicio;
@@ -47,7 +47,7 @@ cambiosFechaInicio(nuevaFechaInicio) {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaFin(nuevaFechaFin) {
+cambiosFechaFin(nuevaFechaFin: any) {
 
   if (nuevaFechaFin < this.FechaInicio) {
     // this.FechaInicio = nuevaFechaFin;
@@ -63,7 +63,7 @@ cambiosFechaFin(nuevaFechaFin) {
 //    Formatea la fecha a yyyy-mm-dd
 // ==================================================
 
-formatDate(date) {
+formatDate(date: any) {
     // tslint:disable-next-line: one-variable-per-declaration
     let d = new Date(date),
     month = '' + (d.getMonth() + 1),

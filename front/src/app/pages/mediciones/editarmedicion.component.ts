@@ -15,27 +15,27 @@ import { MedicionService } from '../../services/medicion/medicion.service';
 })
 export class EditarmedicionComponent implements OnInit {
 
-  forma: FormGroup;
+  forma!: FormGroup;
   desde = 0;
   cargando = false;
   IdMedicion: number;
   medicion: any;
-  persona = null;
+  persona:  any;
   profesionales: any;
-  Nombres: string;
-  Apellidos: string;
+  Nombres!: string;
+  Apellidos!: string;
 
-  Altura: string;
-  Peso: string;
-  IMC: string;
-  Musc: string;
-  Grasa: string;
-  GV: string;
-  IdProfesional: number;
-  IdPersona: string;
-  Fecha: string;
-  ApellidoProf: string;
-  NombreProf: string;
+  Altura!: string;
+  Peso!: string;
+  IMC!: string;
+  Musc!: string;
+  Grasa!: string;
+  GV!: string;
+  IdProfesional!: number;
+  IdPersona: any;
+  Fecha!: string;
+  ApellidoProf!: string;
+  NombreProf!: string;
 
 
   constructor(

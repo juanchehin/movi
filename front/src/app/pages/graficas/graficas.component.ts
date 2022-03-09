@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType } from 'chart.js';
-import { MultiDataSet, Label, Color } from 'ng2-charts';
+// import { ChartType } from 'chart.js';
+// import { MultiDataSet, Label, Color } from 'ng2-charts';
 import { MedicionService } from 'src/app/services/medicion/medicion.service';
 import { ActivatedRoute } from '@angular/router';
 import { PersonaService } from 'src/app/services/service.index';
 import { Medicion } from 'src/app/models/medicion.model';
 
-import { ChartOptions, ChartDataSets } from 'chart.js';
+// import { ChartOptions, ChartDataSets } from 'chart.js';
 import { Persona } from 'src/app/models/persona.model';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
@@ -33,8 +33,8 @@ export class GraficasComponent implements OnInit {
 
    persona: Persona[] = [];
    desde = 0;  // Valor que indica a la BD desde donde mostrar los siguientes 5 elementos
-   date: string;  // IdPersona obtenido del URL
-   termino: number;  // Valor del IdPersona convertido a NUMBER
+   date!: any;  // IdPersona obtenido del URL
+   termino!: number;  // Valor del IdPersona convertido a NUMBER
    totalRegistros = 0;
    cargando = true;
    IdPersona = '0';
@@ -47,7 +47,7 @@ export class GraficasComponent implements OnInit {
    Mediciones = ['Altura', 'Peso', 'IMC', 'Musc', 'Grasa', 'GV'];  // Array de mediciones para el SELECT
 
    // Defino los arrays que se van a ir cargando dinamicamente
-   Fechas: Label[] = [];
+   Fechas: any[] = [];
    Alturas = [];
    Pesos = [];
    IMCs = [];
@@ -55,10 +55,10 @@ export class GraficasComponent implements OnInit {
    Grasas = [];
    GVs = [];
 
-  mediciones: Medicion;  // Aqui se carga la respuesta del SERVER
+  mediciones!: Medicion;  // Aqui se carga la respuesta del SERVER
 
   // Opciones que definen desde donde empieza la grafica , ancho , alto , etc.
-  public barChartOptions: ChartOptions = {
+  /*public barChartOptions: ChartOptions = {
     responsive: true,
     scales: { xAxes: [{}], yAxes: [{ticks: {
       beginAtZero: true
@@ -90,7 +90,7 @@ export class GraficasComponent implements OnInit {
   ];
   // ****** Fin definicion parametros para las graficas ******
 
-
+*/
 
   ngOnInit() {
   }
@@ -101,7 +101,7 @@ export class GraficasComponent implements OnInit {
 // Se dispara al hacer click sobre una MEDICION en el HTML
 // Recibe el valor que el usuario desea graficar como parametro (el que se selecciono en el SELECT)
 // ==================================================
-  cargarGraficas(deviceValue) {
+ /* cargarGraficas(deviceValue) {
     this.barChartLabels = this.Fechas;
     this.parametroSeleccionado = deviceValue;
 
@@ -144,7 +144,7 @@ export class GraficasComponent implements OnInit {
         break;
     }
   }
-
+*/
 // ==================================================
 //    Carga de a 5 mediciones (o menos) dado un id de persona
 // ==================================================
@@ -171,7 +171,7 @@ cargarMediciones() {
               this.totalRegistros = resp[1][0].totalMediciones;
 
                // Lleno los arrays para que se muestren en las graficas . El for elimina las fechas repetidas
-              for ( let i = 0 ; i < resp[0].length ; i++ ) {
+              /*for ( let i = 0 ; i < resp[0].length ; i++ ) {
                 this.Fechas[i] = this.mediciones[i].Fecha;
                 this.Alturas[i] = this.mediciones[i].Altura;
                 this.Pesos[i] = this.mediciones[i].Peso;
@@ -184,7 +184,7 @@ cargarMediciones() {
               this.cargando = false;
 
               this.cargarGraficas(this.parametroSeleccionado);
-
+*/
             });
 
 
@@ -245,7 +245,7 @@ cambiarDesde( valor: number ) {
 
   this.desde += valor;
   this.cargarMediciones();
-  this.cargarGraficas(this.parametroSeleccionado);
+  // this.cargarGraficas(this.parametroSeleccionado);
 }
 
 }

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       );
 
     this.personaService.login(persona)
-      .subscribe(resp => {
+      .subscribe((resp: any) => {
 
         if ( resp === true) {
           this.router.navigate(['/principal']);

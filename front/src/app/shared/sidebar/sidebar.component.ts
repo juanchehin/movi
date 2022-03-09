@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  correoActual: string;
+  correoActual: any;
   IdPersona: string;
   menus: [];
 

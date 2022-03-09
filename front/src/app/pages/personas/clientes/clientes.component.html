@@ -24,19 +24,19 @@
 
 <div class="row">
     <div class="col-sm-6 form-group">
-        <label class="control-label">Filtrar por :  </label>
+        <!-- <label class="control-label">Filtrar por :  </label>
         <select id="Planes" [(ngModel)]="planSeleccionado" (ngModelChange)="cambios($event)" class="browser-default custom-select">
             <option selected value="-1"> Todos </option>
             <option value="0"> Inscriptos en algun plan </option>
             <option [value]="plan.IdPlan" *ngFor="let plan of planes" (change)="onChange($event.target.value)"> {{plan.Plan}} </option>
-        </select>
+        </select> -->
     </div>
     <div class="col-sm-6 form-group">
         <div class="btn-group float-right" role="group" style="margin-top: 30px;">
-            <button [routerLink]="['/mantenimiento/cliente']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+            <!-- <button [routerLink]="['/mantenimiento/cliente']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                 <i class="fa fa-plus"></i>
                 Nuevo Cliente
-                </button>
+                </button> -->
 
             <button (click)="cargarClientes( )" class="btn btn-success">
                     Actualizar lista
@@ -75,28 +75,21 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        <!-- <tr *ngFor="let cliente of clientes" [ngClass]="{'bg-danger text-warning':!cliente.ClasesDisponibles }"> -->
+                    <!-- <tbody>
                         <tr *ngFor="let cliente of clientes" [ngClass]="{'bg-danger text-warning': (cliente.ClasesDisponibles === 0) && (planSeleccionado === -1)}">
 
                             <td>{{ cliente.Apellidos }}</td>
-                            <td>{{ cliente.Nombres }}</td>
-                            <!-- ================= Clases disponibles =================================== -->
-                            <td *ngIf="(planSeleccionado.toString() !== '-1')">
+                            <td>{{ cliente.Nombres }}</td> -->
+                    <!-- ================= Clases disponibles =================================== -->
+                    <!-- <td *ngIf="(planSeleccionado.toString() !== '-1')">
                                 {{ cliente.ClasesDisponibles }}
-                            </td>
-                            <!-- <td *ngIf="(cliente.IdPlan === 1) || (planSeleccionado.toString() !== '-1') ">
-                                -
                             </td> -->
-                            <!-- ============================== Plan =================================== -->
-                            <td *ngIf="(planSeleccionado.toString() === '0')">
+                    <!-- ============================== Plan =================================== -->
+                    <!-- <td *ngIf="(planSeleccionado.toString() === '0')">
                                 {{ cliente.Plan }}
-                            </td>
-                            <!-- <td *ngIf="cliente.IdPlan === 1">
-                                -
                             </td> -->
-                            <!-- ============================== Grupo de Botones =================================== -->
-                            <td>
+                    <!-- ============================== Grupo de Botones =================================== -->
+                    <!-- <td>
                                 <div class=" btn-group " role="group " aria-label="Basic example ">
                                     <button title="Marcar asistencia" *ngIf="planSeleccionado.toString() !== '-1'" (click)="marcarAsistencia(cliente.IdPersona)" class="btn btn-warning ">
                                         <i class="material-icons">
@@ -135,9 +128,9 @@
                                         </i>
                                     </button>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                            </td> -->
+                    <!-- </tr>
+                    </tbody> -->
                 </table>
                 <button (click)="cambiarDesde(-5) " class="btn btn-secondary ">
                     Anteriores
