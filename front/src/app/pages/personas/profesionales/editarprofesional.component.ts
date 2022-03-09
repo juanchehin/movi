@@ -12,40 +12,40 @@ import { Profesional } from 'src/app/models/profesional.model';
 })
 export class EditarprofesionalComponent implements OnInit {
 
-  forma: FormGroup;
+  forma!: FormGroup;
   persona: any;
   sonIguales = false;
   banderaPass = false;
 
-  Correo: string;
-  Password: string;
-  IdTipoDocumento: number;
-  Apellidos: string;
-  Nombres: string;
-  Documento: string;
-  Password2: string;
-  Telefono: string;
-  Sexo: number;
-  Observaciones: string;
-  Foto: string;
-  FechaNac: string;
-  Usuario: string;
-  Calle: string;
-  Piso: string;
-  Departamento: string;
-  Ciudad: string;
-  Pais: string;
-  Numero: number;
-  IdRol: number;
+  Correo!: string;
+  Password!: string;
+  IdTipoDocumento!: number;
+  Apellidos!: string;
+  Nombres!: string;
+  Documento!: string;
+  Password2!: string;
+  Telefono!: string;
+  Sexo!: number;
+  Observaciones!: string;
+  Foto!: string;
+  FechaNac!: string;
+  Usuario!: string;
+  Calle!: string;
+  Piso!: string;
+  Departamento!: string;
+  Ciudad!: string;
+  Pais!: string;
+  Numero!: number;
+  IdRol!: number;
   FechaAlta: any;
   FechaBaja: any;
-  Estado: string;
+  Estado!: string;
 
-  personaValor: string;
-  imagenSubir: File;
-  imagenTemp: string;
+  personaValor!: string;
+  imagenSubir!: File;
+  imagenTemp!: string;
   cargando = true;
-  private date: string;
+  private date!: string;
 
   constructor(public personaService: PersonaService, private activatedRoute: ActivatedRoute, private router: Router) {
 

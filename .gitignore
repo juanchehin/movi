@@ -1,5 +1,7 @@
 front/.DS_STORE
 
+front/.angular
+
 front/dist/
 front/bazel-out
 front/integration/bazel/bazel-*

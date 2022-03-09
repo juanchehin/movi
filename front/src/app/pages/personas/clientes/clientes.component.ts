@@ -25,7 +25,7 @@ export class ClientesComponent implements OnInit {
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  planes: Plan;
+  planes!: Plan;
   cantPlanes = 0;
 
   totalClientes = 0;
@@ -54,7 +54,7 @@ export class ClientesComponent implements OnInit {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambios(nuevoValor) {
+cambios(nuevoValor: any) {
 
     this.planSeleccionado = nuevoValor;
 
@@ -64,7 +64,7 @@ cambios(nuevoValor) {
 // ==================================================
 // Detecta los cambios en el select de los clientes activos/inactivos
 // ==================================================
-cambiosEstado(nuevoEstado) {
+cambiosEstado(nuevoEstado: any) {
 
   this.estadoSeleccionado = nuevoEstado;
 
@@ -130,10 +130,10 @@ cargarPlanes() {
   buscarCliente( ) {
 
     const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    const Apellidos: string = inputElement.value || null;
+    const Apellidos: any = inputElement.value || null;
 
     const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    const Nombres: string = inputElement1.value || null;
+    const Nombres: any = inputElement1.value || null;
 
     this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
             .subscribe( (resp: any) => {
@@ -184,7 +184,7 @@ marcarAsistencia(IdPersona: number) {
 //        Borra una persona
 // ==================================================
 
- eliminarCliente( cliente: Cliente ) {
+ eliminarCliente( cliente: any ) {
 
     Swal.fire({
       title: '¿Esta seguro?',

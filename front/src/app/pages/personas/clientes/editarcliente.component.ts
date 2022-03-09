@@ -13,40 +13,40 @@ import { Cliente } from 'src/app/models/cliente.model';
 })
 export class EditarclienteComponent implements OnInit {
 
-  forma: FormGroup;
+  forma!: FormGroup;
   persona: any;
   sonIguales = false;
   banderaPass = false;
 
-  Correo: string;
-  Password: string;
-  IdTipoDocumento: number;
-  Apellidos: string;
-  Nombres: string;
-  Documento: string;
-  Password2: string;
-  Telefono: string;
-  Sexo: number;
-  Observaciones: string;
-  FechaNac: string;
-  Usuario: string;
-  Objetivo: string;
-  Ocupacion: string;
-  Horario: string;
-  Calle: string;
-  Piso: string;
-  Departamento: string;
-  Ciudad: string;
-  Pais: string;
-  Numero: number;
-  Estado: string;
-  FechaInicio: string;
+  Correo!: string;
+  Password!: string;
+  IdTipoDocumento!: number;
+  Apellidos!: string;
+  Nombres!: string;
+  Documento!: string;
+  Password2!: string;
+  Telefono!: string;
+  Sexo!: number;
+  Observaciones!: string;
+  FechaNac!: any;
+  Usuario!: string;
+  Objetivo!: string;
+  Ocupacion!: string;
+  Horario!: string;
+  Calle!: string;
+  Piso!: string;
+  Departamento!: string;
+  Ciudad!: string;
+  Pais!: string;
+  Numero!: number;
+  Estado!: string;
+  FechaInicio!: string;
 
-  personaValor: string;
-  imagenSubir: File;
-  imagenTemp: string;
+  personaValor!: string;
+  imagenSubir!: File;
+  imagenTemp!: string;
   cargando = true;
-  private date: string;
+  private date!: any;
 
   constructor(public personaService: PersonaService, private activatedRoute: ActivatedRoute, private router: Router) {
 
