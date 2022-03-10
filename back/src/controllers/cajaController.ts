@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-var fileUpload = require('express-fileupload');
+// var fileUpload = require('express-fileupload');
 // const cors = require("cors");
 
 var fs = require('fs');
@@ -106,7 +106,7 @@ public async createIngreso(req: Request, res: Response) {
 
 
 
-    const result = await pool.query('CALL bsp_alta_ingreso(?,?,?,?)', [pIdPersona,pIdPlan,pCantidad,pDescripcion]);
+    const result: any = await pool.query('CALL bsp_alta_ingreso(?,?,?,?)', [pIdPersona,pIdPlan,pCantidad,pDescripcion]);
 
     console.log("result en createIngreso.ts es : ", result);
 

@@ -48,7 +48,7 @@ public async damePlanCliente(req: Request, res: Response): Promise<void> {
 
         var incluyeBajas = req.params.incluyeBajas || 0;
 
-        const planes = await pool.query('call bsp_listar_planes(?,?)',[desde,incluyeBajas]);
+        const planes: any = await pool.query('call bsp_listar_planes(?,?)',[desde,incluyeBajas]);
         // console.log('planes en list es : ', planes);
         // console.log('json(personas) en personasCOntroleer es : ', res.json(personas));
 
@@ -66,7 +66,7 @@ public async listAll(req: Request, res: Response): Promise<void> {
     // var desde = req.query.desde || 0;
     // desde  = Number(desde);
 
-    const planes = await pool.query('call bsp_listar_todos_planes()');
+    const planes: any = await pool.query('call bsp_listar_todos_planes()');
     // console.log('todas las planes en planesCOntroleer es : ', planes);
     // console.log('json(personas) en personasCOntroleer es : ', res.json(personas));
 
@@ -83,7 +83,7 @@ public async listAll(req: Request, res: Response): Promise<void> {
 
         // console.log('id en planesCOntroleer es : ', id);
 
-        const planes = await pool.query('call bsp_dame_plan(?)', [id]);
+        const planes: any = await pool.query('call bsp_dame_plan(?)', [id]);
         // console.log('planes es : ',planes);
 
         if (planes[0][0].Mensaje !== 'El Plan no existe!') {
@@ -143,7 +143,7 @@ public async create(req: Request, res: Response) {
         var pEstado = req.body.EstadoPlan;
 
 
-        const result = await pool.query('call bsp_modifica_plan(?,?,?,?,?,?)', [pIdPlan,pPlan,pPrecio,pCantClases,pDescripcion,pEstado]);    // <-- CAMBIAR y poner los parametros para que lo reciba bien el SQL
+        const result: any = await pool.query('call bsp_modifica_plan(?,?,?,?,?,?)', [pIdPlan,pPlan,pPrecio,pCantClases,pDescripcion,pEstado]);    // <-- CAMBIAR y poner los parametros para que lo reciba bien el SQL
         // console.log('result en update plan es ', result);
 
         if(result[0][0].Mensaje !== 'Ok'){
@@ -162,7 +162,7 @@ public async create(req: Request, res: Response) {
     public async baja(req: Request, res: Response): Promise<void> {
         // console.log('entro en darBaja plan y req.params es : ', req.params);
         const { id } = req.params;
-        const result = await pool.query('CALL bsp_darbaja_plan(?)', id);
+        const result: any = await pool.query('CALL bsp_darbaja_plan(?)', id);
 
         // console.log('Result es  : ', result[0][0].Mensaje);
 

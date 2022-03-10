@@ -12,11 +12,6 @@ class MedicionesController {
 
 
 public async listarMediciones(req: Request, res: Response): Promise<void> {
-    console.log('req.body en listarMediciones ',req.body);
-    console.log(' req.params en listarMediciones ', req.params);
-
-    console.log(' req.params.id en listarMediciones ', req.params.id);
-    console.log(' req.params.desde en listarMediciones ', req.params.desde);
 
     const id = req.params.id;
     var desde = req.params.desde || 0;
@@ -35,8 +30,6 @@ public async listarMediciones(req: Request, res: Response): Promise<void> {
 
 public async nuevaMedicion(req: Request, res: Response) {
 
-    console.log("req.body en nuevaMedicion.ts es : ", req.body);
-
     var IdPersona = req.body.IdCliente;
     var IdProfesional = req.body.IdProfesional;
     var Altura = req.body.Altura;
@@ -49,7 +42,7 @@ public async nuevaMedicion(req: Request, res: Response) {
 
     console.log("Altura en personasCntrolles.ts es : ", Altura);
 
-    const result = await pool.query('CALL bsp_alta_medicion(?,?,?,?,?,?,?,?)', [IdPersona,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
+    const result: any = await pool.query('CALL bsp_alta_medicion(?,?,?,?,?,?,?,?)', [IdPersona,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
 
     console.log("Ingreso hasta aqui y result es : ",result);
 
@@ -76,7 +69,7 @@ public async nuevaMedicion(req: Request, res: Response) {
         const { IdMedicion } = req.params;
         console.log('id en medicionesController : ',IdMedicion);
 
-        const medicion = await pool.query('call bsp_dame_medicion(?)', IdMedicion);
+        const medicion: any = await pool.query('call bsp_dame_medicion(?)', IdMedicion);
         console.log('medicion es : ',medicion);
 
         if (medicion[1][0].Mensaje === 'Ok') {
@@ -107,7 +100,7 @@ public async actualizarMedicion(req: Request, res: Response): Promise<any> {
 
 
 
-    const result = await pool.query('CALL bsp_actualiza_medicion(?,?,?,?,?,?,?,?)', [IdMedicion,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
+    const result: any = await pool.query('CALL bsp_actualiza_medicion(?,?,?,?,?,?,?,?)', [IdMedicion,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
 
     console.log("Ingreso hasta aqui en actualizarMedicion y result es : ", result);
 
@@ -139,7 +132,7 @@ public async eliminarMedicion(req: Request, res: Response) {
     var IdMedicion = req.params.id;
 
 
-    const result = await pool.query('CALL bsp_eliminar_medicion(?)',IdMedicion);
+    const result: any = await pool.query('CALL bsp_eliminar_medicion(?)',IdMedicion);
 
     console.log("Ingreso hasta aqui en eliminarMedicion y result : ",result);
 

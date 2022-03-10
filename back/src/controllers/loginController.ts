@@ -26,7 +26,7 @@ var user = body.Correo;
 
 
 // Verifico si existe un usuario con ese correo
-const result = await pool.query("call bsp_dame_persona_correo_pass(?,?)",[body.Correo,body.Password]);
+const result: any = await pool.query("call bsp_dame_persona_correo_pass(?,?)",[body.Correo,body.Password]);
 
 
 

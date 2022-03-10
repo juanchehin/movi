@@ -62,7 +62,7 @@ public async listarAsistencias(req: Request, res: Response) {
         const { id } = req.params;
         console.log('id en AsistenciaController : ',id);
 
-        const asistencia = await pool.query('call bsp_dame_total_asistencia(?)', [id]);
+        const asistencia: any = await pool.query('call bsp_dame_total_asistencia(?)', [id]);
         console.log('asistencia es : ',asistencia);
 
         if(asistencia[0][0].Mensaje !== 'Ok'){
@@ -91,7 +91,7 @@ public async marcarAsistenciaPersona(req: Request, res: Response): Promise<any> 
     // console.log('IdPlan en marcarAsistenciaPersona : ',IdPlan);
 
 
-    const asistencia = await pool.query('call bsp_marcar_asistencia(?)', IdPersona);
+    const asistencia: any = await pool.query('call bsp_marcar_asistencia(?)', IdPersona);
     console.log('asistencia marcarAsistenciaPersona es : ',asistencia);
 
     if(asistencia[0][0].Mensaje !== 'Ok'){

@@ -21,7 +21,7 @@ class TiposDocumentosController {
 
 public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const tipodoc = await pool.query('call bsp_dame_tipodocumento(?)', [id]);
+    const tipodoc: any = await pool.query('call bsp_dame_tipodocumento(?)', [id]);
 
     if (tipodoc.length > 0) {
         return res.json(tipodoc[0]);

@@ -31,7 +31,7 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
 public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const personas = await pool.query('call bsp_dame_persona(?)', [id]);
+    const personas: any = await pool.query('call bsp_dame_persona(?)', [id]);
 
     if (personas[0][0].Mensaje !== 'La persona no existe!') {
         return res.json(personas[0]);
@@ -120,7 +120,7 @@ public async createCliente(req: Request, res: Response) {
     var Ocupacion = req.body.Ocupacion;
     var Horario = req.body.Horario;
 
-    const result = await pool.query('CALL bsp_alta_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [IdTipoDocumento,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Objetivo,Ocupacion,Horario]);
+    const result: any = await pool.query('CALL bsp_alta_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [IdTipoDocumento,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Objetivo,Ocupacion,Horario]);
 
     if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
         return res.json({
@@ -150,7 +150,7 @@ public async activarCliente(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
 
-    const result = await pool.query('CALL bsp_activar_cliente(?)',IdPersona);
+    const result: any = await pool.query('CALL bsp_activar_cliente(?)',IdPersona);
 
     if(result[0][0].Mensaje !== 'Ok'){
         return res.json({
@@ -183,7 +183,7 @@ public async listarClientes(req: Request, res: Response): Promise<void> {
 
 public async eliminarCliente(req: Request, res: Response) {
     var IdPersona = req.params.IdPersona;
-    const result = await pool.query('CALL bsp_eliminar_cliente(?)',IdPersona);
+    const result: any = await pool.query('CALL bsp_eliminar_cliente(?)',IdPersona);
 
     if(result[0][0].Mensaje !== 'Ok'){
         return res.json({
@@ -225,7 +225,7 @@ public async actualizaCliente(req: Request, res: Response) {
     var Ocupacion = req.body.Ocupacion;
     var Horario = req.body.Horario;
 
-    const result = await pool.query('CALL bsp_editar_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+    const result: any = await pool.query('CALL bsp_editar_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
     [IdPersona,IdTipoDocumento,Apellido,Nombre,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Objetivo,Ocupacion,Horario]);
 
     if(result[0][0].Mensaje !== 'Ok'){
@@ -287,7 +287,7 @@ public async createProfesional(req: Request, res: Response) {
     var Numero = req.body.Numero;    // 19
     var IdRol = req.body.IdRol; 
 
-    const result = await pool.query('CALL bsp_alta_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    const result: any = await pool.query('CALL bsp_alta_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
      [IdTipoDocumento,IdRol,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,
         Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero]);
 
@@ -331,7 +331,7 @@ public async actualizaProfesional(req: Request, res: Response) {
     var Numero = req.body.Numero;    // 20
     var Estado = req.body.Estado; 
 
-    const result = await pool.query('CALL bsp_actualiza_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+    const result: any = await pool.query('CALL bsp_actualiza_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
     [IdPersona,IdTipoDocumento,IdRol,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Estado]);
 
     if(result[0][0].Mensaje !== 'Ok'){
@@ -352,7 +352,7 @@ public async darBajaProfesional(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
 
-    const result = await pool.query('CALL bsp_darbaja_profesional(?)',IdPersona);
+    const result: any = await pool.query('CALL bsp_darbaja_profesional(?)',IdPersona);
 
     if(result[0][0].Mensaje !== 'Ok'){
         return res.json({
