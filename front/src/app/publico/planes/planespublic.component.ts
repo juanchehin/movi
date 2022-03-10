@@ -13,7 +13,7 @@ import { Plan } from 'src/app/models/plan.models';
 export class PlanesPublicComponent implements OnInit {
   desde = 0;
   totalPlanes = 0;
-  planes: Plan;
+  planes!: Plan;
 
   constructor(
     public http: HttpClient, public planesService: PlanService

@@ -28,7 +28,7 @@ export class EditarprofesionalComponent implements OnInit {
   Sexo!: number;
   Observaciones!: string;
   Foto!: string;
-  FechaNac!: string;
+  FechaNac!: any;
   Usuario!: string;
   Calle!: string;
   Piso!: string;
@@ -45,7 +45,7 @@ export class EditarprofesionalComponent implements OnInit {
   imagenSubir!: File;
   imagenTemp!: string;
   cargando = true;
-  private date!: string;
+  private date!: any;
 
   constructor(public personaService: PersonaService, private activatedRoute: ActivatedRoute, private router: Router) {
 
@@ -89,7 +89,7 @@ cargarPersona() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  this.personaService.damePersona( this.date )
+  /*this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
               this.persona = resp;
@@ -121,7 +121,7 @@ cargarPersona() {
               this.cargando = false;
 
             });
-
+*/
 
 }
 // ==================================================

@@ -6,7 +6,7 @@ import { PersonaService } from '../persona/persona.service';
 })
 export class HeaderService {
 
-  menu: any[];
+  menu!: any[];
 
   constructor(
     public personaService: PersonaService,

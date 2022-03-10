@@ -97,7 +97,7 @@ cargarCliente() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  this.personaService.damePersona( this.date )
+  /*this.personaService.damePersona( this.date )
              .subscribe( (resp: Persona) => {
 
 
@@ -131,7 +131,7 @@ cargarCliente() {
               this.cargando = false;
 
             });
-
+*/
 
 }
 // ==================================================

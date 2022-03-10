@@ -12,20 +12,20 @@ import { PlanService } from '../../services/plan/plan.service';
 })
 export class EditarPlanComponent implements OnInit {
 
-  forma: FormGroup;
+  forma!: FormGroup;
   plan: Plan[] = [];
 
-  personaValor: string;
-  imagenSubir: File;
-  imagenTemp: string;
+  personaValor!: string;
+  imagenSubir!: File;
+  imagenTemp!: string;
   cargando = true;
-  private date: string;  // IdPlan
+  private date: any;  // IdPlan
 
-  Plan: string;
-  CantClases: string;
-  Descripcion: string;
-  EstadoPlan: string;
-  Precio: string;
+  Plan!: string;
+  CantClases!: string;
+  Descripcion!: string;
+  EstadoPlan!: string;
+  Precio!: string;
 
   constructor(private planService: PlanService,
               private activatedRoute: ActivatedRoute,
@@ -55,7 +55,7 @@ cargarPlan() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  this.planService.damePlan( this.date )
+  /*this.planService.damePlan( this.date )
              .subscribe( (resp: any) => {
 
 
@@ -67,7 +67,7 @@ cargarPlan() {
               this.Precio = resp.Precio;
               this.cargando = false;
 
-            });
+            });*/
 
 }
 // ==================================================

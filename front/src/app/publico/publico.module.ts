@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 
 import { PUBLICO_ROUTES } from './publico.routes';
 import { PublicoComponent } from './publico.component';
 
 import { AcercaComponent } from '../publico/acerca/acerca.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {SelectModule} from 'ng2-select';
+// import {SelectModule} from 'ng2-select';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -41,9 +41,9 @@ import { PrincipalComponent } from '../publico/principal/principal.component';
     ],
     imports: [
         SharedModule,
-        SelectModule,
+        // SelectModule,
         PUBLICO_ROUTES,
-        ChartsModule,
+        // ChartsModule,
         FormsModule,
         CommonModule,
         ReactiveFormsModule

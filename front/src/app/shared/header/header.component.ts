@@ -14,9 +14,9 @@ export class HeaderComponent implements OnInit {
 
   IdPersona: string;
   medicion: Medicion[] = [];
-  correoActual: string;
+  correoActual: any;
   cargando = true;
-  id: number;
+  id!: number;
   menus: [];
 
   constructor(

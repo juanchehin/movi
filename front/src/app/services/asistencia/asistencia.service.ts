@@ -20,7 +20,7 @@ export class AsistenciaService {
 // ==================================================
 // Carga las asistencias del cliente dado su IdPersona
 // ==================================================
-dameAsistencias(  IdPersona , desde = 0 ) {
+dameAsistencias(  IdPersona: any , desde = 0 ) {
 
   let url = URL_SERVICIOS + '/asistencias/' + desde + '/' + IdPersona;
 

@@ -21,10 +21,10 @@ export class Cliente {
         public Pais?: string,
         public Numero?: number,
         public Objetivo?: string,
-        public ClasesDisponibles?: number,    // Creo que se calcula
+        public ClasesDisponibles?: any,    // Creo que se calcula
         public Ocupacion?: string,
         public Horario?: string,
-        public IdPersona?: number
+        public IdPersona?: any
         // public IdRol?: number,
         // public EstadoPer?: string,
     ) { }

@@ -18,7 +18,7 @@ export class IngresosComponent implements OnInit {
   controlFechas = false;
 
   totalIngresos = 0;
-  ingresos: Array < any > ;
+  ingresos!: Array < any > ;
 
   cargando = true;
 

@@ -90,7 +90,7 @@ cargarPlanes() {
 // Da de baja un plan
 // ==================================================
 
-eliminarPlan( plan: Plan ) {
+eliminarPlan( plan: any ) {
 
   Swal.fire({
     title: '¿Esta seguro?',

@@ -135,7 +135,7 @@ cargarPlanes() {
     const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
     const Nombres: any = inputElement1.value || null;
 
-    this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
+    /*this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
             .subscribe( (resp: any) => {
 
               if( resp.length !== 0 ) {
@@ -144,7 +144,7 @@ cargarPlanes() {
                 this.totalClientes = 0;
                 this.clientes = resp[0];
               }
-            });
+            });*/
 
   }
 

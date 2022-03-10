@@ -20,20 +20,20 @@ export class MedicionComponent implements OnInit {
   personas: Persona[] = [];
   profesionales: Profesional[] = [];
   persona: any = '';
-  id: HTMLElement;
-  selectedOperation: string;
+  id!: HTMLElement;
+  selectedOperation!: string;
   x: any;
   y: any;
   totalMediciones = 0;
 
 
-  forma: FormGroup;
+  forma!: FormGroup;
   desde = 0;
 
   totalRegistros = 0;
   cargando = true;
 
-  private date: string;
+  private date!: any;
 
   // tslint:disable-next-line: max-line-length
   constructor(
@@ -118,7 +118,7 @@ totalMedicion() {
   this.cargando = true;
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
-
+/*
   this.medicionService.totalMedicion( this.date )
              .subscribe( (resp: any) => {
 
@@ -127,7 +127,7 @@ totalMedicion() {
               this.cargando = false;
 
             });
-
+*/
 }
 
 
@@ -160,7 +160,7 @@ cargarPersona() {
   this.cargando = true;
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
-
+/*
   this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
@@ -169,7 +169,7 @@ cargarPersona() {
               this.cargando = false;
 
             });
-
+*/
 }
 
 }

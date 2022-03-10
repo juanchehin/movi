@@ -47,13 +47,13 @@ export class VerificaTokenGuard implements CanActivate {
         resolve(true);
       } else{
 
-        this.personaService.renuevaToken()
-          .subscribe( () => {
-            resolve(true);
-          }, () => {
-            this.router.navigate(['/login']);
-            reject(false);
-          });
+        // this.personaService.renuevaToken()
+        //   .subscribe( () => {
+        //     resolve(true);
+        //   }, () => {
+        //     this.router.navigate(['/login']);
+        //     reject(false);
+        //   });
       }
 
       resolve(true);

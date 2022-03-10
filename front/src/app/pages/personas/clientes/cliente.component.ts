@@ -16,11 +16,11 @@ import { Plan } from '../../../models/plan.models';
 })
 export class ClienteComponent implements OnInit {
 
-  uploadedFiles: string;
+  // uploadedFiles: string;
 
-  forma: FormGroup;
+  forma!: FormGroup;
   respuesta: any;
-  planes: Plan;
+  planes!: Plan;
   cargando = true;
   cantPlanes = 0;
   aparecer = false;
@@ -65,8 +65,9 @@ export class ClienteComponent implements OnInit {
 
 //      EstadoCliente: new FormControl(null)
 
-    },
-    { validators: this.sonIguales('Password' , 'Password2') });
+    });
+
+    // { validators: this.sonIguales('Password' , 'Password2') });
 
   }
 
@@ -180,7 +181,7 @@ sonIguales( campo1: string, campo2: string ) {
 //        Activar cliente
 // ==================================================
 
-activarCliente(IdPersona) {
+activarCliente(IdPersona: any) {
 
   const parametro = JSON.stringify(IdPersona);
 

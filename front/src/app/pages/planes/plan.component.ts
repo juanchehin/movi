@@ -12,13 +12,13 @@ import Swal from 'sweetalert2';
 })
 export class PlanComponent implements OnInit {
 
-  forma: FormGroup;
+  forma!: FormGroup;
   cargando = true;
 
 
 
-  constructor(private router: Router, public planesService: PlanService, public activatedRoute: ActivatedRoute) { 
-    activatedRoute.params.subscribe( params => {
+  constructor(private router: Router, public planesService: PlanService, public activatedRoute: ActivatedRoute) {
+    activatedRoute.params.subscribe( (params: any) => {
 
       const id = params.id;
 

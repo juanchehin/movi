@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Egreso } from '../../models/egreso.model';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 import { Ingreso } from 'src/app/models/ingreso.model';
 import { PersonaService } from '../persona/persona.service';
 

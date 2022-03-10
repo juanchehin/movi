@@ -24,17 +24,17 @@ export class AsistenciasComponent implements OnInit {
       this.cargarPlanes();
     }
 
-  date = '';
+  date: any;
   cargando = true;
   totalPlanes = 0;
   planes = [];
   banderaPlan = false;
   banderaFecha = false;
 
-  Plan: string;
+  Plan!: string;
   clasesDisponibles: any;
-  mesesCredito: string;
-  IdPlan: string;
+  mesesCredito!: string;
+  IdPlan!: string;
   FechaUltimaAsistencia: any;
   hoy1: any;
 

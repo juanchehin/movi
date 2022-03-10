@@ -16,13 +16,13 @@ import { Plan } from 'src/app/models/plan.models';
   styleUrls: []
 })
 export class IngresoComponent implements OnInit {
-  forma: FormGroup;
+  forma!: FormGroup;
   cargando = true;
-  planes: Plan;
+  planes!: Plan;
   cantPlanes = 0;
   persona: Persona[] = [];
   registros: Ingreso[] = [];
-  private date: string;
+  private date: any;
 
 
 
@@ -60,7 +60,8 @@ export class IngresoComponent implements OnInit {
     }
 
     const ingreso = new Ingreso(
-      this.forma.value.IdPersona = this.activatedRoute.snapshot.paramMap.get('id'),
+      // this.forma.value.IdPersona = this.activatedRoute.snapshot.paramMap.get('id'),
+      '1',
       // this.forma.value.Monto,
       this.forma.value.IdPlan,
       this.forma.value.Cantidad,
@@ -100,7 +101,7 @@ cargarPersona() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  this.personaService.damePersona( this.date )
+ /* this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
               this.persona = resp;
@@ -108,7 +109,7 @@ cargarPersona() {
               this.cargando = false;
 
             });
-
+*/
 }
 // ==================================================
 //        Carga de planes

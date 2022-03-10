@@ -58,7 +58,7 @@ cargarMediciones() {
 
   this.cargando = true;
 
-  this.medicionService.dameMediciones( this.termino , this.desde  )
+  /*this.medicionService.dameMediciones( this.termino , this.desde  )
              .subscribe( (resp: any) => {
 
               // Setear el total de las mediciones en totalRegistros
@@ -69,7 +69,7 @@ cargarMediciones() {
               this.cargando = false;
 
             });
-
+*/
 }
 // ==================================================
 //     Carga el cliente actual, para mostrar en el titulo
@@ -77,7 +77,7 @@ cargarMediciones() {
 
 cargarCliente() {
 
-  this.personaService.damePersona( this.date )
+  /*this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
               this.persona = resp;
@@ -85,7 +85,7 @@ cargarCliente() {
               this.cargando = false;
 
             });
-
+*/
 }
 
 

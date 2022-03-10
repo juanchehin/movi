@@ -14,9 +14,9 @@ import { Profesional } from '../../../models/profesional.model';
 })
 export class ProfesionalComponent implements OnInit {
 
-  uploadedFiles: Array < File > ;
+  uploadedFiles!: Array < File > ;
   roles: any;
-  forma: FormGroup;
+  forma!: FormGroup;
 
   constructor(
     public personaService: PersonaService, private router: Router, private activatedRoute: ActivatedRoute
@@ -65,8 +65,9 @@ export class ProfesionalComponent implements OnInit {
       Pais: new FormControl(''),
       Numero: new FormControl(null)
       // Condiciones: new FormControl( false )  // Para saber si se lleno bien el formulario
-    },
-    { validators: this.sonIguales('Password' , 'Password2') });
+    });
+
+    // { validators: this.sonIguales('Password' , 'Password2') });
 
   }
 

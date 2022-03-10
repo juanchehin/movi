@@ -76,7 +76,7 @@ cargarMedicion() {
   this.cargando = true;
 
 
-  this.medicionService.dameMedicion( this.IdMedicion.toString() )
+  /*this.medicionService.dameMedicion( this.IdMedicion.toString() )
              .subscribe( (resp: any) => {
 
 
@@ -98,7 +98,7 @@ cargarMedicion() {
 
             });
 
-
+*/
 }
 
 // ==================================================
@@ -109,7 +109,7 @@ cargarPersona() {
 
   this.cargando = true;
 
-  this.personaService.damePersona( this.IdPersona )
+  /*this.personaService.damePersona( this.IdPersona )
              .subscribe( (resp: Persona) => {
 
 
@@ -119,7 +119,7 @@ cargarPersona() {
               this.cargando = false;
 
             });
-
+*/
 
 }
 

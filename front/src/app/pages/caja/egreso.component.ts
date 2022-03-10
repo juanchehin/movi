@@ -13,11 +13,11 @@ import { Egreso } from '../../models/egreso.model';
   styleUrls: []
 })
 export class EgresoComponent implements OnInit {
-  forma: FormGroup;
+  forma!: FormGroup;
   cargando = true;
   persona: Persona[] = [];
-  egreso: Egreso[];
-  private IdPersona: string;
+  egreso!: Egreso[];
+  private IdPersona!: string;
 
 
 

@@ -11,7 +11,7 @@ export class ProfesionalesPublicComponent implements OnInit {
 
   desde = 0;
   totalProfesionales = 0;
-  profesionales: Profesional;
+  profesionales!: Profesional;
 
   constructor(    public personaService: PersonaService
     ) { }

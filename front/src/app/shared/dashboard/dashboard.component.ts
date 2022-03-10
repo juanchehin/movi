@@ -13,14 +13,14 @@ export class DashboardComponent implements OnInit {
   personas: Persona[] = [];
   persona: any = '';
   cargando = false;
-  date: string;
-  menus: [];
+  date: any;
+  menus!: any[];
 
   IdPersona = '0';
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private personaService: PersonaService,
+    public personaService: PersonaService,
     private router: Router
     ) { }
   ngOnInit() {
@@ -39,14 +39,14 @@ cargarPersona() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  this.personaService.damePersona( this.date )
-             .subscribe( (resp: any) => {
+  // this.personaService.damePersona( this.date )
+  //            .subscribe( (resp: any) => {
 
-              this.persona = resp;
+  //             this.persona = resp;
 
-              this.cargando = false;
+  //             this.cargando = false;
 
-            });
+  //           });
 
 }
 

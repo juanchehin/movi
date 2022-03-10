@@ -163,7 +163,7 @@ cargarMediciones() {
   this.Grasas = [];
   this.GVs = [];
 
-  this.medicionService.dameMediciones( this.termino , this.desde )
+  /*this.medicionService.dameMediciones( this.termino , this.desde )
              .subscribe( (resp: any) => {
 
               // Setear el total de las mediciones en totalRegistros
@@ -171,7 +171,7 @@ cargarMediciones() {
               this.totalRegistros = resp[1][0].totalMediciones;
 
                // Lleno los arrays para que se muestren en las graficas . El for elimina las fechas repetidas
-              /*for ( let i = 0 ; i < resp[0].length ; i++ ) {
+              for ( let i = 0 ; i < resp[0].length ; i++ ) {
                 this.Fechas[i] = this.mediciones[i].Fecha;
                 this.Alturas[i] = this.mediciones[i].Altura;
                 this.Pesos[i] = this.mediciones[i].Peso;
@@ -184,11 +184,11 @@ cargarMediciones() {
               this.cargando = false;
 
               this.cargarGraficas(this.parametroSeleccionado);
-*/
+
             });
 
 
-
+*/
 
 
 
@@ -202,7 +202,7 @@ cargarCliente() {
 
   this.cargando = true;
 
-  this.personaService.damePersona( this.date )
+  /*this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
 
@@ -211,7 +211,7 @@ cargarCliente() {
               this.cargando = false;
 
             });
-
+*/
 }
 
 // ==================================================

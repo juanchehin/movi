@@ -13,7 +13,7 @@ declare var swal: any;
 })
 export class ProfesionalesComponent implements OnInit {
 
-  profesionales: Profesional[] = [];
+  profesionales: any;
   desde = 0;
   incluyeBajas = 0;
 
@@ -108,9 +108,9 @@ eliminarProfesional( profesional: Profesional ) {
 
     if (borrar) {
 
-      const parametro = profesional.IdPersona.toString();
+      // const parametro = profesional.IdPersona.toString();
 
-      this.personaService.eliminarProfesional( parametro )
+      /*this.personaService.eliminarProfesional( parametro )
                 .subscribe( (resp: any) => {
                     this.cargarPersonal();
                     if ( resp.mensaje === 'Ok') {
@@ -130,6 +130,7 @@ eliminarProfesional( profesional: Profesional ) {
                     }
 
                 });
+                */
     }
 
   });

@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CajasComponent implements OnInit {
 
-  private date: string;
+  private date!: string;
 // transacciones: Transaccion[] = [];
   desde = 0;
 
@@ -18,7 +18,7 @@ export class CajasComponent implements OnInit {
   controlFechas = false;
 
   totalTransacciones = 0;
-  transacciones: Array < any > ;
+  transacciones!: Array < any > ;
 
   cargando = true;
   ingresoEgreso = 'ingreso';
@@ -29,7 +29,7 @@ export class CajasComponent implements OnInit {
   ) {
   }
 
-  registros: number;
+  registros!: number;
 
   ngOnInit() {
 
@@ -39,7 +39,7 @@ export class CajasComponent implements OnInit {
 // ==================================================
 // Detecta los cambios en la fecha de inicio
 // ==================================================
-cambiosFechaInicio(nuevaFechaInicio) {
+cambiosFechaInicio(nuevaFechaInicio: any) {
   if (nuevaFechaInicio > this.FechaFin) {
     this.controlFechas = true;
   } else {
@@ -51,7 +51,7 @@ cambiosFechaInicio(nuevaFechaInicio) {
 // ==================================================
 // Detecta los cambios en la fecha de fin
 // ==================================================
-cambiosFechaFin(nuevaFechaFin) {
+cambiosFechaFin(nuevaFechaFin: any) {
 
   if (nuevaFechaFin < this.FechaInicio) {
     this.controlFechas = true;
@@ -64,7 +64,7 @@ cambiosFechaFin(nuevaFechaFin) {
 //    Formatea la fecha a yyyy-mm-dd
 // ==================================================
 
-formatDate(date) {
+formatDate(date: any) {
     // tslint:disable-next-line: one-variable-per-declaration
     let d = new Date(date),
     month = '' + (d.getMonth() + 1),

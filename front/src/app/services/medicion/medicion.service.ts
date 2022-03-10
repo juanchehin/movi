@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Medicion } from '../../models/medicion.model';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
-import { Persona } from 'src/app/models/persona.model';
+// import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
+// import { Persona } from 'src/app/models/persona.model';
 import { PersonaService } from '../persona/persona.service';
 
 
@@ -13,8 +14,8 @@ import { PersonaService } from '../persona/persona.service';
 })
 export class MedicionService {
 
-  medicion: Medicion;
-  persona: Persona;
+  medicion: any;
+  persona: any;
 
   constructor(
     public http: HttpClient, public router: Router, public personaService: PersonaService
@@ -31,12 +32,12 @@ dameMediciones(id: number, desde: number) {
   let url = URL_SERVICIOS + '/mediciones/listar/' + id + '/' + desde;
   url += '?IdRol=' + this.personaService.IdRol;
 
-  return this.http.get(url,
-    {
-      headers: {
-        token: this.personaService.token
-      }
-    }).map( (resp: any) => resp);
+  // return this.http.get(url,
+  //   {
+  //     headers: {
+  //       token: this.personaService.token
+  //     }
+  //   }).map( (resp: any) => resp);
 
 }
 
@@ -49,15 +50,15 @@ dameMedicion( IdMedicion: string) {
   let url = URL_SERVICIOS + '/mediciones/' + IdMedicion;
   url += '?IdRol=' + this.personaService.IdRol;
 
-  return this.http.get(url,
-    {
-      headers: {
-        token: this.personaService.token
-      }
-    }).map(
-          (resp: any) => {
-          return resp;
-    });
+  // return this.http.get(url,
+  //   {
+  //     headers: {
+  //       token: this.personaService.token
+  //     }
+  //   }).map(
+  //         (resp: any) => {
+  //         return resp;
+  //   });
 }
 // ==================================================
 //        Crea una nueva medicion
@@ -106,13 +107,13 @@ totalMedicion( termino: string) {
   url += '?token=' + this.personaService.token;  // query
   url += '&IdRol=' + this.personaService.IdRol;
 
-  return this.http.get(url,
-    {
-      headers: {
-        token: this.personaService.token
-      }
-    }
-    ).map( (resp: any) => resp[0]);
+  // return this.http.get(url,
+  //   {
+  //     headers: {
+  //       token: this.personaService.token
+  //     }
+  //   }
+  //   ).map( (resp: any) => resp[0]);
 
 }
 
@@ -120,7 +121,7 @@ totalMedicion( termino: string) {
 //        Elimina una medicion dado su ID
 // ==================================================
 
-eliminarMedicion( IdMedicion ) {
+eliminarMedicion( IdMedicion: any ) {
 
   let url = URL_SERVICIOS + '/mediciones/eliminar/' + IdMedicion;
   url += '?IdRol=' + this.personaService.IdRol;

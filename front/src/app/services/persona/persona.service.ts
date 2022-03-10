@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Persona } from '../../models/persona.model';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/catch';
+
+import { map } from 'rxjs/operators';
+import { catchError  } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Profesional } from '../../models/profesional.model';
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
 
 
 @Injectable({
@@ -17,13 +20,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class PersonaService {
 
-  persona: Persona;
-  personaValor: string;
-  personaId: string;
+  persona!: any;
+  personaValor!: any;
+  personaId!: any;
   IdRol: any;
-  token: string;
-  usuario = '';
-  menu: [];
+  token!: any;
+  usuario: any;
+  menu!: any;
 
 
   constructor(
@@ -45,23 +48,23 @@ login( persona: Persona ) {
 
   const url = URL_SERVICIOS + '/login';
 
-  return this.http.post(url, persona)
-        .map(
-          ( resp: any ) => {
-  if (resp.mensaje === 'Error de credenciales') {
-    Swal.fire({
-        icon: 'error',
-        title: 'Error en el login',
-        text:  'Error en el login'
-    });
-    return false;
-  }
-  this.IdRol = resp.IdRol;
-  this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
-  this.cargarStorage();
+  // return this.http.post(url, persona)
+  //       .map(
+  //         ( resp: any ) => {
+  // if (resp.mensaje === 'Error de credenciales') {
+  //   Swal.fire({
+  //       icon: 'error',
+  //       title: 'Error en el login',
+  //       text:  'Error en el login'
+  //   });
+  //   return false;
+  // }
+  // this.IdRol = resp.IdRol;
+  // this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
+  // this.cargarStorage();
 
-  return true;
-  });
+  // return true;
+  // });
 }
 
 // ==================================================
@@ -104,7 +107,8 @@ guardarStorage( id: string, token: string, usuario: any, menu: any, IdRol: any )
       const var3 = localStorage.getItem('id');
       this.personaId = var3;
 
-      this.menu = JSON.parse( localStorage.getItem('menu') );
+      this.menu = localStorage.getItem('menu');
+      // this.menu = JSON.parse( localStorage.getItem('menu') );
     }
 
   }
@@ -130,31 +134,31 @@ estaLogueado() {
 
     let url = URL_SERVICIOS + '/login/renuevatoken';
 
-    return this.http.get( url,
-      {
-        headers: {
-          token: this.token
-        }
-      }
-      ).map( (resp: any) => {
+    // return this.http.get( url,
+    //   {
+    //     headers: {
+    //       token: this.token
+    //     }
+    //   }
+    //   ).map( (resp: any) => {
 
-                  this.token = resp.token;
-                  localStorage.setItem('token', this.token );
+    //               this.token = resp.token;
+    //               localStorage.setItem('token', this.token );
 
-                  return true;
-                })
-                .catch( err => {
-                  this.router.navigate(['/login']);
-                  Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'No se pudo renovar token',
-                    showConfirmButton: false,
-                    timer: 2000
-                  });
-                  // tslint:disable-next-line: deprecation
-                  return Observable.throw( err );
-                });
+    //               return true;
+    //             })
+    //             .catch( err => {
+    //               this.router.navigate(['/login']);
+    //               Swal.fire({
+    //                 position: 'top-end',
+    //                 icon: 'error',
+    //                 title: 'No se pudo renovar token',
+    //                 showConfirmButton: false,
+    //                 timer: 2000
+    //               });
+    //               // tslint:disable-next-line: deprecation
+    //               return Observable.throw( err );
+    //             });
 
 
   }
@@ -212,13 +216,13 @@ dameRoles( ) {
 
   let url = URL_SERVICIOS + '/personas/roles/listar';
 
-  return this.http.get(url,
-      {
-        headers: {
-          token: this.token
-        }
-      }
-    ).map( (resp: any) => resp[0]);
+  // return this.http.get(url,
+  //     {
+  //       headers: {
+  //         token: this.token
+  //       }
+  //     }
+  //   ).map( (resp: any) => resp[0]);
 }
 // ==================================================
 //        Da de baja una persona
@@ -230,21 +234,21 @@ dameRoles( ) {
     url += '&termino=' + termino;
     url += '&IdRol=' + this.IdRol;
 
-    return this.http.put(url,
-      termino,
-      {
-        headers: {
-          token: this.token
-        }
-      }).map( (resp: any) => {
-              Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Persona eliminada',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            });
+    // return this.http.put(url,
+    //   termino,
+    //   {
+    //     headers: {
+    //       token: this.token
+    //     }
+    //   }).map( (resp: any) => {
+    //           Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Persona eliminada',
+    //             showConfirmButton: false,
+    //             timer: 2000
+    //           });
+    //         });
 }
 
 // ==================================================
@@ -255,8 +259,8 @@ damePersona( termino: string ) {
 
   const url = URL_SERVICIOS + '/personas/' + termino;
 
-  return this.http.get(url)
-          .map( (resp: any) => resp[0]);
+  // return this.http.get(url)
+  //         .map( (resp: any) => resp[0]);
 }
 
 
@@ -268,15 +272,15 @@ damePersona( termino: string ) {
 
     const url = URL_SERVICIOS + '/personas/busqueda/' + termino;
 
-    return this.http.get(url)
-            .map( (resp: any) => resp[0]);
+    // return this.http.get(url)
+    //         .map( (resp: any) => resp[0]);
   }
 
 // ==================================================
 //        Sube archivos - Peticion POST al server
 // ==================================================
 
-  uploadFile(formData) {
+  uploadFile(formData: any) {
     const url = 'http://localhost:3000/api/personas/upload';
     return this.http.post(url, formData);
   }
@@ -289,33 +293,33 @@ damePersona( termino: string ) {
     let url = URL_SERVICIOS + '/persona/' + this.persona.Correo;
     url += '?IdRol=' + this.IdRol;
 
-    return this.http.put(
-      url,
-      persona,
-      {
-        headers: {
-          token: this.token
-        }
-      }
-      ).map( (resp: any) => {
-              const personaDB: Persona = resp.usuario;
+    // return this.http.put(
+    //   url,
+    //   persona,
+    //   {
+    //     headers: {
+    //       token: this.token
+    //     }
+    //   }
+    //   ).map( (resp: any) => {
+    //           const personaDB: Persona = resp.usuario;
 
-              const param = String(personaDB.IdPersona);
+    //           const param = String(personaDB.IdPersona);
 
-              if ( persona.IdPersona === this.persona.IdPersona ) {
+    //           if ( persona.IdPersona === this.persona.IdPersona ) {
 
-                this.guardarStorage( param , this.token , this.usuario , this.menu , this.IdRol);
-              }
+    //             this.guardarStorage( param , this.token , this.usuario , this.menu , this.IdRol);
+    //           }
 
-              this.guardarStorage( param , this.token , this.usuario , this.menu , this.IdRol);
-              Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Usuario actualizado',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            });
+    //           this.guardarStorage( param , this.token , this.usuario , this.menu , this.IdRol);
+    //           Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Usuario actualizado',
+    //             showConfirmButton: false,
+    //             timer: 2000
+    //           });
+    //         });
   }
 
 
@@ -326,7 +330,7 @@ damePersona( termino: string ) {
 // ==================================================
 //        Cargar clientes - Peticion GET al server
 // ==================================================
-cargarClientesPlanEstado( desde: number = 0 , IdPlan) {
+cargarClientesPlanEstado( desde: number = 0 , IdPlan: any) {
 
   let url = URL_SERVICIOS + '/personas/clientes/plan/' + desde + '/' + IdPlan ;  // query
   url += '?IdRol=' + this.IdRol;
@@ -367,8 +371,8 @@ buscarClientePorPlan( Apellidos: string , Nombres: string , IdPlan: string  ) {
 
   const url = URL_SERVICIOS + '/personas/busqueda/plan/' + Apellidos + '/' + Nombres  + '/' + IdPlan;
 
-  return this.http.get(url)
-          .map( (resp: any) => resp[0]);
+  // return this.http.get(url)
+  //         .map( (resp: any) => resp[0]);
 }
 
 // ==================================================
@@ -394,7 +398,7 @@ crearCliente( cliente: Cliente ) {
 //        Elimina un cliente
 // ==================================================
 
-eliminarCliente( IdPersona ) {
+eliminarCliente( IdPersona: any ) {
 
   let url = URL_SERVICIOS + '/personas/cliente/eliminar/' + IdPersona;
 
@@ -500,7 +504,7 @@ cargarPersonal( desde: number , incluyeBajas: number ) {
 //        Elimina un profesional
 // ==================================================
 
-eliminarProfesional( IdPersona ) {
+eliminarProfesional( IdPersona: any ) {
 
   let url = URL_SERVICIOS + '/personas/profesional/eliminar/' + IdPersona;
   url += '&IdRol=' + this.IdRol;
@@ -524,22 +528,22 @@ bajaProfesional( termino: string ) {
   url += '&termino=' + termino;
   url += '&IdRol=' + this.IdRol;
 
-  return this.http.put(url,
-    termino,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-    ).map( (resp: any) => {
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Profesional eliminado',
-              showConfirmButton: false,
-              timer: 2000
-            });
-          });
+  // return this.http.put(url,
+  //   termino,
+  //   {
+  //     headers: {
+  //       token: this.token
+  //     }
+  //   }
+  //   ).map( (resp: any) => {
+  //           Swal.fire({
+  //             position: 'top-end',
+  //             icon: 'success',
+  //             title: 'Profesional eliminado',
+  //             showConfirmButton: false,
+  //             timer: 2000
+  //           });
+  //         });
 }
 
 }

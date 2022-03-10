@@ -13,9 +13,9 @@ import { Persona } from 'src/app/models/persona.model';
 })
 export class HistoricoComponent implements OnInit {
 
-  IdProfesinal: string;
+  IdProfesinal!: string;
   desde = 0;
-  IdPersona: string;
+  IdPersona: any;
   totalAsistencias = 0;
   asistencias: any;
 
@@ -62,13 +62,13 @@ cargarAsistencias() {
 
 cargarCliente() {
 
-  this.personaService.damePersona( this.IdPersona )
+ /* this.personaService.damePersona( this.IdPersona )
              .subscribe( (resp: any) => {
               this.apellidos = resp.Apellidos;
               this.nombres = resp.Nombres;
 
             });
-
+*/
 }
 
 
