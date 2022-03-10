@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
 // ==================================================
   ingresar(forma: NgForm) {
 
-
-
     if ( forma.invalid ) {
 
       return;
@@ -38,13 +36,13 @@ export class LoginComponent implements OnInit {
       forma.value.password
       );
 
-    // this.personaService.login(persona)
-    //   .subscribe((resp: any) => {
+    this.personaService.login(persona)
+      .subscribe((resp: any) => {
 
-    //     if ( resp === true) {
-    //       this.router.navigate(['/principal']);
-    //     }
-    //   });
+        if ( resp === true) {
+          this.router.navigate(['/principal']);
+        }
+      });
 
   }
 

@@ -44,27 +44,30 @@ export class PersonaService {
 // ==================================================
 //        Logueo de la persona
 // ==================================================
-login( persona: Persona ) {
+login( persona: Persona ): any {
 
   const url = URL_SERVICIOS + '/login';
 
-  // return this.http.post(url, persona)
-  //       .map(
-  //         ( resp: any ) => {
-  // if (resp.mensaje === 'Error de credenciales') {
-  //   Swal.fire({
-  //       icon: 'error',
-  //       title: 'Error en el login',
-  //       text:  'Error en el login'
-  //   });
-  //   return false;
-  // }
-  // this.IdRol = resp.IdRol;
-  // this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
-  // this.cargarStorage();
+  return this.http.post(url, persona)
+  .pipe(
+        map(
+          ( resp: any ) => {
+              if (resp.mensaje === 'Error de credenciales') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error en el login',
+                    text:  'Error en el login'
+                });
+                return false;
+              }
 
-  // return true;
-  // });
+
+    this.IdRol = resp.IdRol;
+    this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
+    this.cargarStorage();
+
+    return true;
+  }));
 }
 
 // ==================================================
