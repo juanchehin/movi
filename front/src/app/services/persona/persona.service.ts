@@ -489,7 +489,9 @@ cargarProfesionales(  ) {
 cargarPersonal( desde: number , incluyeBajas: number ) {
 
   console.log('entra en cargarPersonal');
+
   let url = URL_SERVICIOS + '/personas/personal/listar/' + desde + '/' + incluyeBajas;
+
   url += '?IdRol=' + this.IdRol;
 
   return this.http.get(

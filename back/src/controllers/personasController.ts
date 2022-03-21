@@ -371,8 +371,14 @@ public async darBajaProfesional(req: Request, res: Response) {
 public async listarPersonal(req: Request, res: Response): Promise<void> {
     var desde =  req.params.desde;
     var incluyeBajas =  req.params.incluyeBajas;
-    const personal = await pool.query('call bsp_listar_personal(?,?)',[desde,incluyeBajas]);
-    res.json(personal);
+
+    pool.query(`call bsp_listar_personal('${desde}','${incluyeBajas}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        res.json(result);
+    })
  }
 
  // ==================================================

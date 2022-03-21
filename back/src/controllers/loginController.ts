@@ -23,9 +23,7 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
     if(err){
         // res.send({ err:'err' })
         console.log("err es : ",err);
-    }  
-
-    console.log("result dentro es : ",result);
+    }
 
     //
     if(result[0][0].Mensaje !== 'Ok' || null){
