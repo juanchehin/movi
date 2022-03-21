@@ -8,13 +8,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styles: []
 })
+
 export class DashboardComponent implements OnInit {
 
   personas: Persona[] = [];
   persona: any = '';
   cargando = false;
   date: any;
-  menus!: any[];
+  menus!: any;
 
   IdPersona = '0';
 
@@ -24,13 +25,15 @@ export class DashboardComponent implements OnInit {
     private router: Router
     ) { }
   ngOnInit() {
+
     this.cargarPersona();
-    this.menus = this.personaService.menu;
+
+    this.menus = JSON.parse(this.personaService.menu);
 
   }
 
 // ==================================================
-//        Carga de persona - Para mostrar nombre y apellido en el titulo
+// Carga de persona - Para mostrar nombre y apellido en el titulo
 // ==================================================
 
 cargarPersona() {
@@ -39,14 +42,14 @@ cargarPersona() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  // this.personaService.damePersona( this.date )
-  //            .subscribe( (resp: any) => {
+  this.personaService.damePersona( this.date )
+             .subscribe( (resp: any) => {
 
-  //             this.persona = resp;
+              this.persona = resp[0];
 
-  //             this.cargando = false;
+              this.cargando = false;
 
-  //           });
+            });
 
 }
 
