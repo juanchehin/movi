@@ -16,17 +16,13 @@ public async login(req: Request, res: Response){
 
     const email = req.body.Correo;
     const pass = req.body.Password;
-    
-    
-    console.log(email,pass)
-
 // 
 pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(err: any, result: string | any[]){
     var menu: any = [];
 
     if(err){
-    // res.send({ err:'err' })
-    console.log("err es : ",err);
+        // res.send({ err:'err' })
+        console.log("err es : ",err);
     }  
 
     console.log("result dentro es : ",result);
@@ -46,8 +42,6 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
     
     var token = jwt.sign({ usuario: email }, SEED, { expiresIn: 14400});
     
-    console.log('token');
-    
     //   IdRol 1 - Clientes
     if(result[0][0].IdRol === 1) {
         console.log('Entro en el IDROL 1 ');
@@ -64,16 +58,16 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
                 const respuesta = pool.query('call bsp_actualiza_estado_cliente(?)',result[0][0].IdPersona);
                 console.log('respuesta de actualiza es : ',respuesta);
     }
-    
-        // IdRol 3 - Administrador
+
+    // IdRol 3 - Administrador
     if(result[0][0].IdRol === 3) {
         console.log('Entro en el IDROL 3 ');
         
         menu = [
-            { titulo: 'Personal', url: '/mantenimiento/profesionales', icono :'group' },
-            { titulo: 'Clientes', url: '/mantenimiento/clientes' , icono :'sports_kabaddi'},
-            { titulo: 'Caja', url: '/cajas' , icono :'attach_money'},
-            { titulo: 'Planes', url: '/mantenimiento/planes' , icono :'dehaze'}
+                { titulo: 'Personal', url: '/mantenimiento/profesionales', icono :'group' },
+                { titulo: 'Clientes', url: '/mantenimiento/clientes' , icono :'sports_kabaddi'},
+                { titulo: 'Caja', url: '/cajas' , icono :'attach_money'},
+                { titulo: 'Planes', url: '/mantenimiento/planes' , icono :'dehaze'}
             ]
     }
     
@@ -88,7 +82,7 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
         ]
     }
     
-    
+    console.log("pasa");
     // Respuesta
     res.status(200).json({
         ok: true,
@@ -99,7 +93,7 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
         menu: menu
     });
     
-   
+    console.log("pasa 1");
 })
 
 
@@ -126,8 +120,6 @@ public async renuevatoken(req: Request, res: Response): Promise<void> {
 // ==================================================
 //   Actualiza el estado de un cliente
 // ==================================================
-
-
 public async actualizaEstadoCliente(req: Request, res: Response): Promise<void> {
     console.log(' req.params en actualizaEstadoCliente ', req.params);
 

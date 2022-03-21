@@ -31,12 +31,14 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
 public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const personas: any = await pool.query('call bsp_dame_persona(?)', [id]);
-
-    if (personas[0][0].Mensaje !== 'La persona no existe!') {
-        return res.json(personas[0]);
-    }
-    res.status(404).json({ text: "La personas no existe" });
+    pool.query(`call bsp_dame_persona('${id}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error : ", err);
+            res.status(404).json({ text: "La personas no existe" });
+        }
+        
+        return res.json(result[0]);
+    })
         
 }
 

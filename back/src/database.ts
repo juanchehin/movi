@@ -1,5 +1,3 @@
-// import mysql from 'promise-mysql';
-// import mysql from 'mysql2';
 const mysql = require('mysql2');
 import keys from './keys';
 

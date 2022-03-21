@@ -3,16 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Persona } from '../../models/persona.model';
 import { Router } from '@angular/router';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/catch';
 
 import { map } from 'rxjs/operators';
-import { catchError  } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Profesional } from '../../models/profesional.model';
-// import { Observable } from 'rxjs/Observable';
 
 
 @Injectable({
@@ -60,7 +56,6 @@ login( persona: Persona ): any {
                 });
                 return false;
               }
-
 
     this.IdRol = resp.IdRol;
     this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
@@ -206,6 +201,7 @@ logout() {
 cargarPersonas( desde: number = 0 ) {
 
   const url = URL_SERVICIOS + '/personas?desde=' + desde;
+
   return this.http.get( url );
 
 }
@@ -231,7 +227,7 @@ dameRoles( ) {
 //        Da de baja una persona
 // ==================================================
 
-  bajaPersona( termino: string ) {
+bajaPersona( termino: string ) {
 
     let url = URL_SERVICIOS + '/personas/';
     url += '&termino=' + termino;
@@ -258,12 +254,14 @@ dameRoles( ) {
 //        Obtiene una persona de la BD
 // ==================================================
 
-damePersona( termino: string ) {
+damePersona( termino: string ): any {
+
+  console.log("pasa damePersona");
 
   const url = URL_SERVICIOS + '/personas/' + termino;
 
-  // return this.http.get(url)
-  //         .map( (resp: any) => resp[0]);
+  return this.http.get(url);
+
 }
 
 
