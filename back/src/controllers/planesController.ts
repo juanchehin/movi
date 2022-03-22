@@ -10,9 +10,13 @@ class PlanesController {
 public async marcarAsistencia(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
 
-    const planes = await pool.query('call bsp_marcarAsistencia(?)',id);
-
-    res.json(planes);
+    pool.query(`call bsp_marcarAsistencia('${id}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        res.json(result);
+    })
 }
 
 // ==================================================
@@ -69,20 +73,21 @@ public async listAll(req: Request, res: Response): Promise<void> {
 // ==================================================
 //        Obtiene un plan de la BD
 // ==================================================
-
-
-    public async getOne(req: Request, res: Response): Promise<any> {
+public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
 
-        const planes: any = await pool.query('call bsp_dame_plan(?)', [id]);
-
-        if (planes[0][0].Mensaje !== 'El Plan no existe!') {
-            return res.json(planes[0]);
-        }
-        res.status(404).json({ text: "El plan no existe" });
-
-        
-    }
+        pool.query(`call bsp_dame_plan('${id}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            if (result[0][0].Mensaje !== 'El Plan no existe!') {
+                return res.json(result[0]);
+            }
+            res.status(404).json({ text: "El plan no existe" });
+        })
+    
+}
 
 // ==================================================
 //        Inserta un plan
@@ -96,12 +101,16 @@ public async create(req: Request, res: Response) {
         var Precio = req.body.Precio;
         var Descripcion = req.body.Descripcion;
    
+        pool.query(`call bsp_listar_planes('${Plan}','${Precio}','${Descripcion}','${CantClases}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            res.json({ Mensaje: 'Ok' });
+        })
 
-        const result = await pool.query('CALL bsp_alta_plan(?,?,?,?)', [Plan,Precio,Descripcion,CantClases]);
 
-        res.json({ Mensaje: 'Ok' });
-
-    }
+}
 
 // ==================================================
 //        Actualiza un plan
@@ -118,15 +127,21 @@ public async update(req: Request, res: Response): Promise<void> {
         var pEstado = req.body.EstadoPlan;
 
 
-        const result: any = await pool.query('call bsp_modifica_plan(?,?,?,?,?,?)', [pIdPlan,pPlan,pPrecio,pCantClases,pDescripcion,pEstado]);    // <-- CAMBIAR y poner los parametros para que lo reciba bien el SQL
+        pool.query(`call bsp_modifica_plan('${pIdPlan}','${pPlan}','${pPrecio}','${pCantClases}','${pDescripcion}','${pEstado}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            if(result[0][0].Mensaje !== 'Ok'){
+                res.json({ Mensaje: result[0][0].Mensaje });
+                console.log("Error en la transaccion ");
+                return;
+            }
+    
+            res.json({ Mensaje: 'Ok' });
+        })
 
-        if(result[0][0].Mensaje !== 'Ok'){
-            res.json({ Mensaje: result[0][0].Mensaje });
-            console.log("Error en la transaccion ");
-            return;
-        }
-
-        res.json({ Mensaje: 'Ok' });
+        
     }
 
 // ==================================================
@@ -136,14 +151,20 @@ public async update(req: Request, res: Response): Promise<void> {
     public async baja(req: Request, res: Response): Promise<void> {
         
         const { id } = req.params;
-        const result: any = await pool.query('CALL bsp_darbaja_plan(?)', id);
 
-        if (result[0][0].Mensaje !== 'Ok'){
-            res.json({ Mensaje: result[0][0].Mensaje });
-        }
-        else{
-            res.json(result[0][0].Mensaje);
-        }
+        pool.query(`call bsp_darbaja_plan('${id}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            if (result[0][0].Mensaje !== 'Ok'){
+                res.json({ Mensaje: result[0][0].Mensaje });
+            }
+            else{
+                res.json(result[0][0].Mensaje);
+            }
+        })
+
     }
 
 }

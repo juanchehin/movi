@@ -17,10 +17,14 @@ public async listarMediciones(req: Request, res: Response): Promise<void> {
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
-     const mediciones = await pool.query('call bsp_listar_mediciones(?,?)',[desde,id]);
-     console.log('mediciones en medicionesCOntroleer es : ', mediciones);
+    pool.query(`call bsp_listar_mediciones('${desde}','${id}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        res.json(result);
+    })
 
-     res.json(mediciones);
  }
 
 // ==================================================
@@ -39,24 +43,20 @@ public async nuevaMedicion(req: Request, res: Response) {
     var Grasa = req.body.Grasa;
     var GV = req.body.GV;
 
+     pool.query(`call bsp_alta_medicion('${IdPersona}','${IdProfesional}','${Altura}','${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                // ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
 
-    console.log("Altura en personasCntrolles.ts es : ", Altura);
-
-    const result: any = await pool.query('CALL bsp_alta_medicion(?,?,?,?,?,?,?,?)', [IdPersona,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
-
-    console.log("Ingreso hasta aqui y result es : ",result);
-
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            // ok: false,
-            Mensaje: result[0][0].Mensaje
-        });
-    }
-
-    console.log("Ingreso hasta aqui en nuevaMedicion  y result es : ",result);
-
-    res.json({ Mensaje: 'Ok' });
-
+        res.json({ Mensaje: 'Ok' });
+    })
 }
 
 
@@ -64,22 +64,22 @@ public async nuevaMedicion(req: Request, res: Response) {
 //        Obtiene una medicion de la BD
 // ==================================================
 
-
-    public async getOne(req: Request, res: Response): Promise<any> {
+public async getOne(req: Request, res: Response): Promise<any> {
         const { IdMedicion } = req.params;
-        console.log('id en medicionesController : ',IdMedicion);
 
-        const medicion: any = await pool.query('call bsp_dame_medicion(?)', IdMedicion);
-        console.log('medicion es : ',medicion);
-
-        if (medicion[1][0].Mensaje === 'Ok') {
-            return res.json(medicion[0][0]);
-        }
-
-        res.status(404).json({ text: medicion[1][0].Mensaje });
-
+        pool.query(`call bsp_dame_medicion('${IdMedicion}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            if (result[1][0].Mensaje === 'Ok') {
+                return res.json(result[0][0]);
+            }
+    
+            res.status(404).json({ text: result[1][0].Mensaje });
+        })
         
-    }
+}
 // ==================================================
 //        Editar una medicion de la BD
 // ==================================================
@@ -94,29 +94,23 @@ public async actualizarMedicion(req: Request, res: Response): Promise<any> {
     var Musc = req.body.Musc;
     var Grasa = req.body.Grasa;
     var GV = req.body.GV;
-    // var IdCliente = req.body.IdCliente;
     var IdProfesional = req.body.IdProfesional;
     var IdMedicion = req.body.IdMedicion;
 
+    pool.query(`call bsp_alta_medicion('${IdMedicion}','${IdProfesional}','${Altura}','${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                // ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
 
-
-    const result: any = await pool.query('CALL bsp_actualiza_medicion(?,?,?,?,?,?,?,?)', [IdMedicion,IdProfesional,Altura,Peso,IMC,Musc,Grasa,GV]);
-
-    console.log("Ingreso hasta aqui en actualizarMedicion y result es : ", result);
-
-    console.log("Ingreso hasta aqui en actualizarMedicion y result[0][0].Mensaje es : ",result[0][0].Mensaje);
-
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            mensaje: result[0][0].Mensaje
-        });
-    }
-
-    console.log("Ingreso hasta aqui en actualizarMedicion  y result es : ",result);
-
-    res.json({ message: 'Ok' });
-
+        res.json({ Mensaje: 'Ok' });
+    })
     
 }
 
@@ -126,26 +120,22 @@ public async actualizarMedicion(req: Request, res: Response): Promise<any> {
 
 public async eliminarMedicion(req: Request, res: Response) {
 
-
-    console.log("req.body en eliminarMedicion es : ", req.params);
-
     var IdMedicion = req.params.id;
 
+    pool.query(`call bsp_eliminar_medicion('${IdMedicion}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result.Mensaje
+            });
+        }
 
-    const result: any = await pool.query('CALL bsp_eliminar_medicion(?)',IdMedicion);
-
-    console.log("Ingreso hasta aqui en eliminarMedicion y result : ",result);
-
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            Mensaje: result.Mensaje
-        });
-    }
-
-    console.log("Ingreso hasta aqui en eliminarMedicion y result es : ",result);
-
-    return res.json({ Mensaje: 'Ok' });
+        return res.json({ Mensaje: 'Ok' });
+    })
 
 }
 

@@ -279,10 +279,6 @@ public async listarClientesPlan(req: Request, res: Response): Promise<void> {
         }
         res.json(result);
     })
-
-    //  const clientes = await pool.query('call bsp_listar_clientes_plan(?,?)',[desde,IdPlan]);
-
-    //  res.json(clientes);
  }
 
 // ===========================================================================
