@@ -75,21 +75,21 @@
                         </tr>
                     </thead>
 
-                    <!-- <tbody>
+                    <tbody>
                         <tr *ngFor="let cliente of clientes" [ngClass]="{'bg-danger text-warning': (cliente.ClasesDisponibles === 0) && (planSeleccionado === -1)}">
 
                             <td>{{ cliente.Apellidos }}</td>
-                            <td>{{ cliente.Nombres }}</td> -->
-                    <!-- ================= Clases disponibles =================================== -->
-                    <!-- <td *ngIf="(planSeleccionado.toString() !== '-1')">
+                            <td>{{ cliente.Nombres }}</td>
+                            <!-- ================= Clases disponibles =================================== -->
+                            <td *ngIf="(planSeleccionado.toString() !== '-1')">
                                 {{ cliente.ClasesDisponibles }}
-                            </td> -->
-                    <!-- ============================== Plan =================================== -->
-                    <!-- <td *ngIf="(planSeleccionado.toString() === '0')">
-                                {{ cliente.Plan }}
-                            </td> -->
-                    <!-- ============================== Grupo de Botones =================================== -->
-                    <!-- <td>
+                            </td>
+                            <!-- ============================== Plan =================================== -->
+                            <td *ngIf="(planSeleccionado.toString() === '0')">
+                                <!-- {{ cliente.Plan }} -->
+                            </td>
+                            <!-- ============================== Grupo de Botones =================================== -->
+                            <td>
                                 <div class=" btn-group " role="group " aria-label="Basic example ">
                                     <button title="Marcar asistencia" *ngIf="planSeleccionado.toString() !== '-1'" (click)="marcarAsistencia(cliente.IdPersona)" class="btn btn-warning ">
                                         <i class="material-icons">
@@ -128,9 +128,9 @@
                                         </i>
                                     </button>
                                 </div>
-                            </td> -->
-                    <!-- </tr>
-                    </tbody> -->
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <button (click)="cambiarDesde(-5) " class="btn btn-secondary ">
                     Anteriores

@@ -15,14 +15,17 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
 // ==================================================
 //        Lista personas desde cierto valor
 // ==================================================
-
     public async list(req: Request, res: Response): Promise<void> {
         var desde = req.query.desde || 0;
         desde  = Number(desde);
 
-        const personas = await pool.query('call bsp_listar_personas(?)',[desde]);
-
-        res.json(personas);
+        pool.query(`call bsp_listar_personas('${desde}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error", err);
+                return;
+            }
+            res.json(result);
+        })
     }
 
 // ==================================================
@@ -56,9 +59,14 @@ public async buscarPorPlanEstado(req: Request, res: Response): Promise<any> {
     if(Nombre === 'null')
         Nombre = '';
 
-    const clientes = await pool.query('call bsp_buscar_cliente_plan_estado(?,?,?)', [Apellido,Nombre,IdPlan]);
-
-    res.json(clientes);
+    pool.query(`call bsp_buscar_cliente_plan_estado('${Apellido}','${Nombre}','${IdPlan}')`, function(err: any, result: any, fields: any){
+            if(err){
+                console.log("error : ", err);
+                res.status(404).json({ text: "Ocurrio un problema" });
+            }
+            
+            return res.json(result);
+    })
 }
 
 
@@ -67,8 +75,15 @@ public async buscarPorPlanEstado(req: Request, res: Response): Promise<any> {
 // ==================================================
 public async buscar(req: Request, res: Response): Promise<any> {
     const busqueda = req.params.busqueda;
-    const personas = await pool.query('call bsp_buscar_persona(?)',busqueda);
-    res.json(personas);
+    
+    pool.query(`call bsp_buscar_persona('${busqueda}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error : ", err);
+            res.status(404).json({ text: "La personas no existe" });
+        }
+        
+        return res.json(result);
+    })
 }
 
 // ==================================================
@@ -174,9 +189,13 @@ public async listarClientes(req: Request, res: Response): Promise<void> {
      var desde = req.params.desde || 0;
      desde  = Number(desde);
 
-     const clientes = await pool.query('call bsp_listar_clientes_estado(?)',[desde]);
-
-     res.json(clientes);
+     pool.query(`call bsp_listar_clientes_estado('${desde}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        res.json(result);
+    })
  }
 
 // ==================================================
@@ -253,9 +272,17 @@ public async listarClientesPlan(req: Request, res: Response): Promise<void> {
      var desde = req.params.desde || 0;
      desde  = Number(desde);
 
-     const clientes = await pool.query('call bsp_listar_clientes_plan(?,?)',[desde,IdPlan]);
+     pool.query(`call bsp_listar_clientes_plan('${desde}','${IdPlan}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
+        res.json(result);
+    })
 
-     res.json(clientes);
+    //  const clientes = await pool.query('call bsp_listar_clientes_plan(?,?)',[desde,IdPlan]);
+
+    //  res.json(clientes);
  }
 
 // ===========================================================================
