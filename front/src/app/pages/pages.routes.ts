@@ -40,6 +40,7 @@ import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { ProfesionalAdminGuard } from '../services/guards/profesionalAdmin.guard';
 import { HistoricoComponent } from './asistencias/historico.component';
+import { CarnetComponent } from './carnet/carnet.component';
 
 const pagesRoutes: Routes = [
     {
@@ -98,6 +99,8 @@ const pagesRoutes: Routes = [
             { path: 'cajas/ingresos', component: IngresosComponent },
             { path: 'cajas/egresos', component: EgresosComponent },
             { path: 'cajas/egreso', component: EgresoComponent },
+            // Carnet
+            { path: 'carnet/:id', component: CarnetComponent },
             { path: '', redirectTo: 'principal', pathMatch: 'full' }
         ]
     }

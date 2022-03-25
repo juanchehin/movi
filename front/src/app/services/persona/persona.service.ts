@@ -256,8 +256,6 @@ bajaPersona( termino: string ) {
 
 damePersona( termino: string ): any {
 
-  console.log("pasa damePersona");
-
   const url = URL_SERVICIOS + '/personas/' + termino;
 
   return this.http.get(url);

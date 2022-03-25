@@ -122,6 +122,11 @@
                                             grading
                                             </i>
                                     </button>
+                                    <button title="Borrar cliente" [routerLink]="['/carnet', cliente.IdPersona ] " class="btn btn-Light ">
+                                      <i class="material-icons ">
+                                        credit_score
+                                      </i>
+                                  </button>
                                     <button title="Borrar cliente" (click)="eliminarCliente( cliente ) " class="btn btn-danger ">
                                         <i class="material-icons ">
                                         delete
