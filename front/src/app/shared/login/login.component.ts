@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { PersonaService, HeaderService } from '../../services/service.index';
 import { Persona } from '../../models/persona.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -27,22 +28,39 @@ export class LoginComponent implements OnInit {
   ingresar(forma: NgForm) {
 
     if ( forma.invalid ) {
-
       return;
     }
 
     const persona = new Persona(
       forma.value.email,
       forma.value.password
-      );
+    );
+
+    // Llamada al servicio
 
     this.personaService.login(persona)
-      .subscribe((resp: any) => {
+        .subscribe((resp: any) => {
 
-        if ( resp === true) {
-          this.router.navigate(['/principal']);
-        }
-      });
+          if ( resp === true) {
+            this.router.navigate(['/principal']);
+            return;
+          }
+
+
+      },
+      ( error: any) => {
+        console.log("Error",error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Ha ocurrido un error',
+            text: 'Contactese con el administrador',
+          });
+      }
+
+      );
+
+
+
 
   }
 
