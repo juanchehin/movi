@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { URL_SERVICIOS } from '../../config/config';
 import { Persona } from '../../models/persona.model';
 import { Router } from '@angular/router';
-
 import { map } from 'rxjs/operators';
-
-import Swal from 'sweetalert2';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Profesional } from '../../models/profesional.model';
+import { environment } from '../../../environments/environment';
+
+const URL_SERVICIOS = environment.URL_SERVICIOS;
 
 
 @Injectable({

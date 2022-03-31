@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { URL_SERVICIOS } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
 import { Plan } from 'src/app/models/plan.models';
 import { PersonaService } from '../persona/persona.service';
+import { environment } from '../../../environments/environment';
+
+const URL_SERVICIOS = environment.URL_SERVICIOS;
 
 @Injectable({
   providedIn: 'root'
