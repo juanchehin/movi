@@ -137,23 +137,29 @@ public async createCliente(req: Request, res: Response) {
     var Ocupacion = req.body.Ocupacion;
     var Horario = req.body.Horario;
 
-    const result: any = await pool.query('CALL bsp_alta_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [IdTipoDocumento,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Objetivo,Ocupacion,Horario]);
+    pool.query(`call bsp_alta_cliente('${IdTipoDocumento}','${Apellidos}','${Nombres}','${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}','${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},'${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error : ", err);
+            res.status(404).json({ text: "Ocurrio un problema" });
+            return;
+        }
+        
+        if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
+            return res.json({
+                Mensaje: result[0][0].Mensaje,
+                pIdPersona: result[1][0].IdPersona
+            });
+        }
+    
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
 
-    if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
-        return res.json({
-            Mensaje: result[0][0].Mensaje,
-            pIdPersona: result[1][0].IdPersona
-        });
-    }
-
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            Mensaje: result[0][0].Mensaje
-        });
-    }
-
-    return res.json({ Mensaje: 'Ok' });
+        return res.json({ Mensaje: 'Ok' });
+    })
 
 }
 

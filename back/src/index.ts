@@ -48,7 +48,7 @@ class Server {
 
         // ******* Configuracion de CORS ********
         // Creo una lista blanca
-        var listaBlanca = ['http://localhost:4200']
+        var listaBlanca = ['localhost:4200','http://localhost:4200']
         // Creo la configuracion
           var configuracionCORS = {
             // Creo la funcion 'origin'
