@@ -12,7 +12,7 @@ import { Plan } from 'src/app/models/plan.models';
 declare var swal: any;
 
 @Component({
-  selector: 'app-personas',
+  selector: 'app-clientes',
   templateUrl: './clientes.component.html',
   styles: []
 })
@@ -25,7 +25,7 @@ export class ClientesComponent implements OnInit {
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  planes!: Plan;
+  planes!: any;
   cantPlanes = 0;
 
   totalClientes = 0;
@@ -49,7 +49,13 @@ export class ClientesComponent implements OnInit {
 
   }
 
+// ==================================================
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
+// ==================================================
+onChange(nuevoValor: any) {
 
+  console.log("nuevo valor : ",nuevoValor);
+}
 
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
@@ -111,6 +117,7 @@ cargarPlanes() {
 
   this.planService.cargarTodasPlanes( )
              .subscribe( (resp: any) => {
+
 
               this.planes = resp[0];
 
