@@ -42,8 +42,9 @@ import { ProfesionalesComponent } from './personas//profesionales/profesionales.
 import { EditarprofesionalComponent } from './personas//profesionales/editarprofesional.component';
 import { DashboardComponent } from '../shared/dashboard/dashboard.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
-// import { WebcamModule } from 'ngx-webcam';
+import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
+import { CamaraComponent } from './personas/clientes/camara/camara.component';
 
 
 
@@ -77,7 +78,7 @@ import { HistoricoComponent } from './asistencias/historico.component';
         AsistenciasComponent,
         GraficasComponent,
         DashboardComponent,
-
+        CamaraComponent,
     ],
     exports: [
         PagesComponent,
@@ -85,7 +86,7 @@ import { HistoricoComponent } from './asistencias/historico.component';
         PlanComponent,
     ],
     imports: [
-        // WebcamModule,
+        WebcamModule,
         SharedModule,
         // SelectModule,
         PAGES_ROUTES,

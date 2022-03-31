@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PersonaService } from '../../../services/service.index';
 import Swal from 'sweetalert2';
@@ -6,15 +6,21 @@ import { Router } from '@angular/router';
 import { Cliente } from '../../../models/cliente.model';
 import { PlanService } from '../../../services/plan/plan.service';
 import { Plan } from '../../../models/plan.models';
-
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject } from 'rxjs';
 
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
-  styleUrls: []
+  styleUrls: ['./cliente.component.scss']
 })
 export class ClienteComponent implements OnInit {
+
+
+
+  // latest snapshot
+  public webcamImage: any = null;
 
   // uploadedFiles: string;
 
@@ -36,6 +42,7 @@ export class ClienteComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.forma = new FormGroup({
       // IdPersona: new FormControl(),
       IdRol: new FormControl('0', Validators.required ),
@@ -65,9 +72,9 @@ export class ClienteComponent implements OnInit {
 
 //      EstadoCliente: new FormControl(null)
 
-    });
-
-    // { validators: this.sonIguales('Password' , 'Password2') });
+    }, {
+      // validator: this.sonIguales('Password' , 'Password2')
+    })
 
   }
 
@@ -75,7 +82,10 @@ export class ClienteComponent implements OnInit {
 // ==================================================
 //        Controla que las contraseñas sean iguales
 // ==================================================
-sonIguales( campo1: string, campo2: string ) {
+sonIguales( campo1: string, campo2: string ): any {
+
+  console.log("son campo1",campo1);
+  console.log("son campo2",campo2);
 
   return ( group: FormGroup ) => {
 
@@ -83,6 +93,7 @@ sonIguales( campo1: string, campo2: string ) {
     const pass2 = group.controls[campo2].value;
 
     if ( pass1 === pass2 ) {
+      console.log("son iguales");
       return null;
     }
 
@@ -225,6 +236,8 @@ cargarPlanes() {
 
 }
 
+handleImage(webcamImage: WebcamImage) {
+  this.webcamImage = webcamImage;
+}
 
-
-  }
+}
