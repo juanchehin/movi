@@ -7,7 +7,6 @@ import { Cliente } from '../../../models/cliente.model';
 import { PlanService } from '../../../services/plan/plan.service';
 import { Plan } from '../../../models/plan.models';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { Observable, Subject } from 'rxjs';
 
 
 @Component({
@@ -16,8 +15,6 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./cliente.component.scss']
 })
 export class ClienteComponent implements OnInit {
-
-
 
   // latest snapshot
   public webcamImage: any = null;

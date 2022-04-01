@@ -3,11 +3,11 @@ import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-camara',
-  templateUrl: './camara.component.html'
+  selector: 'app-modal-camara',
+  templateUrl: './modal-camara.component.html'
   // styleUrls: ['./camra.component.scss']
 })
-export class CamaraComponent implements OnInit {
+export class ModalCamaraComponent implements OnInit {
   @Output()
   public pictureTaken = new EventEmitter<WebcamImage>();
 

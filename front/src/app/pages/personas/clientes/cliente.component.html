@@ -1,13 +1,17 @@
 <div class="container">
     <h1 class="well">Formulario de registro de clientes</h1>
     <div class="row">
-        <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarCliente()">
-            <div class="col-sm-12">
+        <div class="col-sm-12">
+            <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarCliente()">
+
                 <div class="alert alert-primary" role="alert">
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label>Apellidos</label>
                             <input formControlName="Apellidos" name="Apellidos" required type="text" placeholder="Apellidos" class="form-control">
+
+                            <label>Nombres</label>
+                            <input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres..." class="form-control">
 
                             <div>
                                 <label for="start">Fecha de Nacimiento</label>
@@ -15,20 +19,31 @@
                             <div>
                                 <input type="date" name="FechaNac" formControlName="FechaNac" required>
                             </div>
-                        </div>
-
-                        <div class="col-sm-6 form-group">
-                            <label>Nombres</label>
-                            <input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres..." class="form-control">
 
                             <div class="-gyroup">
                                 <label required class="control-label">Sexo</label>
                                 <select required class="form-control" formControlName="Sexo">
-                                    <option value="0">Hombre</option>
-                                    <option value="1">Mujer</option>
-                                </select>
+                                  <option value="0">Hombre</option>
+                                  <option value="1">Mujer</option>
+                              </select>
 
                             </div>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <div>
+                                <img src="../../../../assets/images/sportsman.png" class="img-thumbnail" alt="Imagen" width="300" height="400">
+                            </div>
+
+                            <br>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tomarFoto">
+                                Tomar fotografia
+                            </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subirImagen">
+                              Subir imagen
+                            </button>
+                            <br>
                         </div>
 
                         <div class="col-sm-6 form-group">
@@ -46,9 +61,6 @@
 
 
                     </div>
-
-
-
                     <div class="form-group">
                         <label>Contraseña </label>
                         <input formControlName="Password" required name="Password" type="password" placeholder="Contraseña" class="form-control">
@@ -127,18 +139,60 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar cliente</button>
+                <br>
+            </form>
 
-            </div>
-            <br>
-            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar cliente</button>
-            <br>
-        </form>
-
-        <app-camara (pictureTaken)="handleImage($event)"></app-camara>
-
-        <div class="snapshot" *ngIf="webcamImage">
-            <img [src]="webcamImage.imageAsDataUrl" />
         </div>
 
+
+
+    </div>
+</div>
+
+
+<!-- Modal tomarFoto -->
+<div class="modal fade" id="tomarFoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tomar foto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <app-modal-camara (pictureTaken)="handleImage($event)"></app-modal-camara>
+
+                <div class="snapshot" *ngIf="webcamImage">
+                    <img [src]="webcamImage.imageAsDataUrl" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal subirImagen -->
+<div class="modal fade" id="subirImagen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Subir imagen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>

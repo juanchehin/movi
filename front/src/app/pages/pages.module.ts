@@ -44,7 +44,7 @@ import { DashboardComponent } from '../shared/dashboard/dashboard.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
 import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
-import { CamaraComponent } from './personas/clientes/camara/camara.component';
+import { ModalCamaraComponent } from './personas/clientes/modal-camara/modal-camara.component';
 
 
 
@@ -78,7 +78,7 @@ import { CamaraComponent } from './personas/clientes/camara/camara.component';
         AsistenciasComponent,
         GraficasComponent,
         DashboardComponent,
-        CamaraComponent,
+        ModalCamaraComponent,
     ],
     exports: [
         PagesComponent,
