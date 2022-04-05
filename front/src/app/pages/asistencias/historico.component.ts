@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Medicion } from 'src/app/models/medicion.model';
-import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { AsistenciaService, PersonaService } from 'src/app/services/service.index';
-import { Persona } from 'src/app/models/persona.model';
 
 
 @Component({
