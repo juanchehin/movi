@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URL_SERVICIOS: 'https://movi.herokuapp.com/api'
+  URL_SERVICIOS: 'http://localhost:3000/api'
 };

@@ -48,7 +48,7 @@ class Server {
 
         // ******* Configuracion de CORS ********
         // Creo una lista blanca
-        var listaBlanca = ['localhost:4200','http://localhost:4200']
+        /*var listaBlanca = ['localhost:4200','http://localhost:4200']
         // Creo la configuracion
           var configuracionCORS = {
             // Creo la funcion 'origin'
@@ -63,10 +63,10 @@ class Server {
                 return;
               }
             }
-          }
+          }*/
 
 
-        this.app.use('/', cors(configuracionCORS),indexRoutes);
+        this.app.use('/',indexRoutes);
         this.app.use('/api/personas', personasRoutes);
         this.app.use('/api/tiposdocumentos', tiposdocumentosRoutes);
         this.app.use('/api/login', loginRoutes);
