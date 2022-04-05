@@ -507,7 +507,7 @@ cargarPersonal( desde: number , incluyeBajas: number ) {
 eliminarProfesional( IdPersona: any ) {
 
   let url = URL_SERVICIOS + '/personas/profesional/eliminar/' + IdPersona;
-  url += '&IdRol=' + this.IdRol;
+  url += '?IdRol=' + this.IdRol;
 
   return this.http.delete(url,
     {

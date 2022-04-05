@@ -318,18 +318,24 @@ public async createProfesional(req: Request, res: Response) {
     var Numero = req.body.Numero;    // 19
     var IdRol = req.body.IdRol; 
 
-    const result: any = await pool.query('CALL bsp_alta_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-     [IdTipoDocumento,IdRol,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,
-        Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero]);
+    pool.query(`call bsp_alta_profesional('${IdTipoDocumento}','${IdRol}','${Apellidos}','${Nombres}'
+    ,'${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}','${Correo}','${Usuario}'
+    ,'${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero})`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
 
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            Mensaje: result[0][0].Mensaje
-        });
-    }
-
-    res.json({ Mensaje: 'Ok' });
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+    
+        res.json({ Mensaje: 'Ok' });
+        
+    })   
 
 }
 
@@ -362,17 +368,24 @@ public async actualizaProfesional(req: Request, res: Response) {
     var Numero = req.body.Numero;    // 20
     var Estado = req.body.Estado; 
 
-    const result: any = await pool.query('CALL bsp_actualiza_profesional(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
-    [IdPersona,IdTipoDocumento,IdRol,Apellidos,Nombres,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Estado]);
+    pool.query(`call bsp_actualiza_profesional('${IdPersona}','${IdTipoDocumento}','${IdRol}','${Apellidos}','${Nombres}'
+    ,'${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}','${Correo}','${Usuario}'
+    ,'${Calle}','${Piso}','${Departamento}','${Ciudad}','${Pais}','${Numero}','${Estado}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
 
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            // ok: false,
-            Mensaje: result[0][0].Mensaje
-        });
-    }
-
-    return res.json({ Mensaje: 'Ok' });
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+    
+        res.json({ Mensaje: 'Ok' });
+        
+    })
 
 }
 
@@ -383,15 +396,23 @@ public async darBajaProfesional(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
 
-    const result: any = await pool.query('CALL bsp_darbaja_profesional(?)',IdPersona);
+    pool.query(`call bsp_darbaja_profesional('${IdPersona}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
 
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            mensaje: result.Mensaje
-        });
-    }
-    return res.json({ mensaje: 'Ok' });
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                mensaje: result.Mensaje
+            });
+        }
+        return res.json({ mensaje: 'Ok' });
+        
+    })
+
+    
 
 }
  // ==================================================
@@ -417,9 +438,21 @@ public async listarPersonal(req: Request, res: Response): Promise<void> {
 
 public async listarProfesionales(req: Request, res: Response): Promise<void> {
 
-     const personal = await pool.query('call bsp_listar_profesionales()');
+    pool.query(`call bsp_listar_profesionales()`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
 
-     res.json(personal);
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                mensaje: result.Mensaje
+            });
+        }
+        return res.json(result);
+        
+    })
  }
 }
 
