@@ -62,13 +62,13 @@ cargarAsistencias() {
 
 cargarCliente() {
 
- /* this.personaService.damePersona( this.IdPersona )
+  this.personaService.damePersona( this.IdPersona )
              .subscribe( (resp: any) => {
-              this.apellidos = resp.Apellidos;
-              this.nombres = resp.Nombres;
+              this.apellidos = resp[0].Apellidos;
+              this.nombres = resp[0].Nombres;
 
             });
-*/
+
 }
 
 
