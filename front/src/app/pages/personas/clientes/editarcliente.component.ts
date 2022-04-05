@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from '../../../models/persona.model';
 import { PersonaService } from '../../../services/service.index';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -49,10 +48,7 @@ export class EditarclienteComponent implements OnInit {
   private date!: any;
 
   constructor(public personaService: PersonaService, private activatedRoute: ActivatedRoute, private router: Router) {
-
     this.cargarCliente();
-
-
   }
 
   ngOnInit() {
@@ -161,7 +157,8 @@ compararContraseñas( campo1: string, campo2: string ) {
 
 actualizaCliente( ) {
 
-  console.log("this.fechanac : ",this.FechaNac);
+  var fechaFormat = this.FechaNac.split(" ")[0].split("-").reverse().join("-");
+
 
   if(this.forma.value.Password !== this.forma.value.Password2){
     this.banderaPass = true;
@@ -184,7 +181,7 @@ actualizaCliente( ) {
     this.forma.value.Documento = this.forma.value.Documento || this.Documento,
     this.forma.value.Telefono = this.forma.value.Telefono || this.Telefono,
     this.forma.value.Sexo = this.forma.value.Sexo || this.Sexo,
-    this.forma.value.FechaNac = this.forma.value.FechaNac || this.FechaNac,
+    this.forma.value.FechaNac = this.forma.value.FechaNac || fechaFormat,
     this.forma.value.Observaciones = this.forma.value.Observaciones || this.Observaciones,
     this.forma.value.Usuario = this.forma.value.Usuario || this.Usuario,
     this.forma.value.Calle = this.forma.value.Calle || this.Calle,
@@ -201,8 +198,6 @@ actualizaCliente( ) {
     this.forma.value.IdPersona = Number(this.date)
 
   );
-
-  console.log("cliente es ",cliente)
 
   this.personaService.editarCliente( cliente )
              .subscribe( (resp: any) => {

@@ -230,8 +230,6 @@ public async eliminarCliente(req: Request, res: Response) {
 
 public async actualizaCliente(req: Request, res: Response) {
 
-    var fechaFormat = req.body.FechaNac.split(" ")[0].split("-").reverse().join("-");
-
     var IdPersona = req.body.IdPersona;
     var IdTipoDocumento = req.body.IdTipoDocumento;
     var Apellidos = req.body.Apellidos;
@@ -241,7 +239,7 @@ public async actualizaCliente(req: Request, res: Response) {
     var Telefono = req.body.Telefono;
     var Sexo = req.body.Sexo;
     var Observaciones = req.body.Observaciones;
-    // var FechaNac = req.body.FechaNac;
+    var FechaNac = req.body.FechaNac;
     var Correo = req.body.Correo;
     var Usuario = req.body.Usuario;
     var Calle = req.body.Calle;
@@ -255,7 +253,7 @@ public async actualizaCliente(req: Request, res: Response) {
     var Horario = req.body.Horario;
 
     pool.query(`call bsp_editar_cliente('${IdPersona}','${IdTipoDocumento}','${Apellidos}','${Nombres}',
-    '${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${fechaFormat}',
+    '${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}',
     '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
     '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
         if(err){
