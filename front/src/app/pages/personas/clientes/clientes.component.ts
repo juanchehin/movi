@@ -136,22 +136,25 @@ cargarPlanes() {
 
   buscarCliente( ) {
 
+    console.log("buscarClientePorPlan  :")
+
     const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
     const Apellidos: any = inputElement.value || null;
 
     const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
     const Nombres: any = inputElement1.value || null;
 
-    /*this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
+    this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
             .subscribe( (resp: any) => {
 
               if( resp.length !== 0 ) {
-                this.clientes = resp;
+                this.clientes = resp[0];
+                this.totalClientes = resp[1][0].cantCli;
               } else {
                 this.totalClientes = 0;
                 this.clientes = resp[0];
               }
-            });*/
+            });
 
   }
 

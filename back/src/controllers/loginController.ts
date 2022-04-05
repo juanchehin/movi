@@ -42,7 +42,6 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
     
     //   IdRol 1 - Clientes
     if(result[0][0].IdRol === 1) {
-        console.log('Entro en el IDROL 1 ');
     
         menu = [
                     { titulo: 'Mis mediciones', url: '/cliente/mediciones',icono :'format_list_bulleted' },
@@ -59,7 +58,6 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
 
     // IdRol 3 - Administrador
     if(result[0][0].IdRol === 3) {
-        console.log('Entro en el IDROL 3 ');
         
         menu = [
                 { titulo: 'Personal', url: '/mantenimiento/profesionales', icono :'group' },
@@ -70,9 +68,7 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
     }
     
     //  IdRol 2 - Profesionales
-    if(result[0][0].IdRol === 2) {
-        console.log('Entro en el IDROL 2 ');
-    
+    if(result[0][0].IdRol === 2) { 
         menu = 
         [
             { titulo: 'Clientes', url: '/mantenimiento/clientes' , icono :'group'},

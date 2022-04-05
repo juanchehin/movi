@@ -11,8 +11,7 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
 @Component({
   selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss']
+  templateUrl: './cliente.component.html'
 })
 export class ClienteComponent implements OnInit {
 

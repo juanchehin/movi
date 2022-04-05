@@ -365,12 +365,14 @@ activarCliente( IdPersona: any ) {
 // Busca una persona en la BD dado su ID y el ID del plan al cual esta inscripto
 // ==================================================
 
-buscarClientePorPlan( Apellidos: string , Nombres: string , IdPlan: string  ) {
+buscarClientePorPlan( Apellidos: string , Nombres: string , IdPlan: string  ): any {
 
   const url = URL_SERVICIOS + '/personas/busqueda/plan/' + Apellidos + '/' + Nombres  + '/' + IdPlan;
 
-  // return this.http.get(url)
-  //         .map( (resp: any) => resp[0]);
+  return this.http.get(url);
+
+//    return this.http.get(url)
+//           .map( (resp: any) => resp[0]);
 }
 
 // ==================================================
