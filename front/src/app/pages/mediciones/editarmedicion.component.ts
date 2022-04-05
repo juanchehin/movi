@@ -46,9 +46,6 @@ export class EditarmedicionComponent implements OnInit {
     private router: Router) {
     this.IdMedicion = Number(this.activatedRoute.snapshot.paramMap.get('IdMedicion'));
     this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-
-
-
   }
 
   ngOnInit() {
@@ -76,7 +73,7 @@ cargarMedicion() {
   this.cargando = true;
 
 
-  /*this.medicionService.dameMedicion( this.IdMedicion.toString() )
+  this.medicionService.dameMedicion( this.IdMedicion.toString() )
              .subscribe( (resp: any) => {
 
 
@@ -98,7 +95,6 @@ cargarMedicion() {
 
             });
 
-*/
 }
 
 // ==================================================
@@ -109,17 +105,14 @@ cargarPersona() {
 
   this.cargando = true;
 
-  /*this.personaService.damePersona( this.IdPersona )
-             .subscribe( (resp: Persona) => {
+  this.personaService.damePersona( this.IdPersona )
+             .subscribe( (resp: any) => {
 
-
-              this.persona = resp;
-
+              this.persona = resp[0];
 
               this.cargando = false;
 
             });
-*/
 
 }
 

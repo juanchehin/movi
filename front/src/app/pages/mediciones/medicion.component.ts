@@ -4,11 +4,8 @@ import { Medicion } from 'src/app/models/medicion.model';
 import Swal from 'sweetalert2';
 import { Router , ActivatedRoute } from '@angular/router';
 import { MedicionService } from 'src/app/services/medicion/medicion.service';
-import { Persona } from 'src/app/models/persona.model';
 import { Profesional } from '../../models/profesional.model';
 import { PersonaService } from 'src/app/services/service.index';
-
-
 
 @Component({
   selector: 'app-medicion',
@@ -17,7 +14,7 @@ import { PersonaService } from 'src/app/services/service.index';
 })
 export class MedicionComponent implements OnInit {
 
-  personas: Persona[] = [];
+  personas: any;
   profesionales: Profesional[] = [];
   persona: any = '';
   id!: HTMLElement;
@@ -72,7 +69,6 @@ nuevaMedicion() {
     return;
   }
 
-
   const medicion = new Medicion(
     this.forma.value.Altura,
     this.forma.value.Peso,
@@ -118,7 +114,7 @@ totalMedicion() {
   this.cargando = true;
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
-/*
+
   this.medicionService.totalMedicion( this.date )
              .subscribe( (resp: any) => {
 
@@ -127,11 +123,8 @@ totalMedicion() {
               this.cargando = false;
 
             });
-*/
+
 }
-
-
-
 // ==================================================
 // Carga todos los profesionales para seleccionar uno que es el que realiza la medicion
 // ==================================================
@@ -148,28 +141,26 @@ cargarProfesionalesCompleto() {
               this.cargando = false;
 
             });
-
 }
 
 // ==================================================
 //        Carga de persona - Para mostrar nombre y apellido en el titulo
 // ==================================================
-
 cargarPersona() {
 
   this.cargando = true;
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
-/*
+
   this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
-              this.persona = resp;
+              this.persona = resp[0];
 
               this.cargando = false;
 
             });
-*/
+
 }
 
 }

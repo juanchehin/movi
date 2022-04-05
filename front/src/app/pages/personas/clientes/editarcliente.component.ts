@@ -97,11 +97,11 @@ cargarCliente() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  /*this.personaService.damePersona( this.date )
-             .subscribe( (resp: Persona) => {
+  this.personaService.damePersona( this.date )
+             .subscribe( (resp: any) => {
 
 
-              this.persona = resp;
+              this.persona = resp[0];
 
               this.Correo = this.persona.Correo;
               this.Password =  this.persona.Password;
@@ -131,7 +131,6 @@ cargarCliente() {
               this.cargando = false;
 
             });
-*/
 
 }
 // ==================================================
@@ -162,9 +161,7 @@ compararContraseñas( campo1: string, campo2: string ) {
 
 actualizaCliente( ) {
 
-  if((this.forma.value.FechaNac === '00-00-0000') || (this.forma.value.FechaNac === null)){
-    this.FechaNac = null;
-  }
+  console.log("this.fechanac : ",this.FechaNac);
 
   if(this.forma.value.Password !== this.forma.value.Password2){
     this.banderaPass = true;
@@ -204,6 +201,8 @@ actualizaCliente( ) {
     this.forma.value.IdPersona = Number(this.date)
 
   );
+
+  console.log("cliente es ",cliente)
 
   this.personaService.editarCliente( cliente )
              .subscribe( (resp: any) => {

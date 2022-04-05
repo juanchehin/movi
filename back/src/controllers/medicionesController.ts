@@ -13,6 +13,8 @@ class MedicionesController {
 
 public async listarMediciones(req: Request, res: Response): Promise<void> {
 
+    console.log("listarMediciones");
+
     const id = req.params.id;
     var desde = req.params.desde || 0;
     desde  = Number(desde);
@@ -22,6 +24,9 @@ public async listarMediciones(req: Request, res: Response): Promise<void> {
             console.log("error", err);
             return;
         }
+
+        console.log("listarMediciones result ",result);
+
         res.json(result);
     })
 
@@ -30,8 +35,6 @@ public async listarMediciones(req: Request, res: Response): Promise<void> {
 // ==================================================
 //        Inserta una medicion
 // ==================================================
-
-
 public async nuevaMedicion(req: Request, res: Response) {
 
     var IdPersona = req.body.IdCliente;
@@ -43,7 +46,8 @@ public async nuevaMedicion(req: Request, res: Response) {
     var Grasa = req.body.Grasa;
     var GV = req.body.GV;
 
-     pool.query(`call bsp_alta_medicion('${IdPersona}','${IdProfesional}','${Altura}','${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
+     pool.query(`call bsp_alta_medicion(${IdPersona},${IdProfesional},'${Altura}',
+     '${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error", err);
             return;
@@ -97,7 +101,8 @@ public async actualizarMedicion(req: Request, res: Response): Promise<any> {
     var IdProfesional = req.body.IdProfesional;
     var IdMedicion = req.body.IdMedicion;
 
-    pool.query(`call bsp_alta_medicion('${IdMedicion}','${IdProfesional}','${Altura}','${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_medicion('${IdMedicion}','${IdProfesional}','${Altura}',
+    '${Peso}','${IMC}','${Musc}','${Grasa}','${GV}')`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error", err);
             return;

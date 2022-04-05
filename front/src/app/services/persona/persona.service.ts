@@ -419,11 +419,18 @@ editarCliente( cliente: Cliente ) {
 
   let url = URL_SERVICIOS + '/personas/cliente/actualizar/' + id;
 
-  url += '?token=' + this.token;  // query
-  url += '&IdRol=' + this.IdRol;
+  // url += '?token=' + this.token;  // query
+  url += '?IdRol=' + this.IdRol;
 
 
-  return this.http.put(url , cliente );
+  return this.http.put(url ,
+     cliente,
+     {
+      headers: {
+        token: this.token
+      }
+    }
+  );
 }
 
 // ====================================================================================================================

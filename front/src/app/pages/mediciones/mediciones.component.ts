@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, } from '@angular/forms';
-import { Medicion } from 'src/app/models/medicion.model';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { MedicionService } from 'src/app/services/medicion/medicion.service';
-import { Persona } from 'src/app/models/persona.model';
 import { Profesional } from '../../models/profesional.model';
 import { PersonaService } from 'src/app/services/service.index';
 
@@ -16,9 +14,9 @@ import { PersonaService } from 'src/app/services/service.index';
 })
 export class MedicionesComponent implements OnInit {
 
-  persona: Persona[] = [];
+  persona: any;
   profesionales: Profesional[] = [];
-  mediciones!: Medicion;
+  mediciones!: any;
   param!: number;
   termino: number;
   IdProfesinal!: string;
@@ -58,7 +56,7 @@ cargarMediciones() {
 
   this.cargando = true;
 
-  /*this.medicionService.dameMediciones( this.termino , this.desde  )
+  this.medicionService.dameMediciones( this.termino , this.desde  )
              .subscribe( (resp: any) => {
 
               // Setear el total de las mediciones en totalRegistros
@@ -69,7 +67,7 @@ cargarMediciones() {
               this.cargando = false;
 
             });
-*/
+
 }
 // ==================================================
 //     Carga el cliente actual, para mostrar en el titulo
@@ -77,15 +75,15 @@ cargarMediciones() {
 
 cargarCliente() {
 
-  /*this.personaService.damePersona( this.date )
+  this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
-              this.persona = resp;
+              this.persona = resp[0];
 
               this.cargando = false;
 
             });
-*/
+
 }
 
 

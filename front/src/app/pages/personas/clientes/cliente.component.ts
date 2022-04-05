@@ -80,8 +80,6 @@ export class ClienteComponent implements OnInit {
 // ==================================================
 sonIguales( campo1: string, campo2: string ): any {
 
-  console.log("son campo1",campo1);
-  console.log("son campo2",campo2);
 
   return ( group: FormGroup ) => {
 
@@ -89,7 +87,6 @@ sonIguales( campo1: string, campo2: string ): any {
     const pass2 = group.controls[campo2].value;
 
     if ( pass1 === pass2 ) {
-      console.log("son iguales");
       return null;
     }
 

@@ -31,12 +31,14 @@ dameMediciones(id: number, desde: number) {
   let url = URL_SERVICIOS + '/mediciones/listar/' + id + '/' + desde;
   url += '?IdRol=' + this.personaService.IdRol;
 
-  // return this.http.get(url,
-  //   {
-  //     headers: {
-  //       token: this.personaService.token
-  //     }
-  //   }).map( (resp: any) => resp);
+  // return this.http.get(url);
+
+  return this.http.get(url,
+    {
+      headers: {
+        token: this.personaService.token
+      }
+    });
 
 }
 
@@ -48,6 +50,13 @@ dameMedicion( IdMedicion: string) {
 
   let url = URL_SERVICIOS + '/mediciones/' + IdMedicion;
   url += '?IdRol=' + this.personaService.IdRol;
+
+  return this.http.get(url,
+      {
+        headers: {
+          token: this.personaService.token
+        }
+      });
 
   // return this.http.get(url,
   //   {
@@ -105,6 +114,8 @@ totalMedicion( termino: string) {
   let url = URL_SERVICIOS + '/mediciones/' + termino;
   url += '?token=' + this.personaService.token;  // query
   url += '&IdRol=' + this.personaService.IdRol;
+
+  return this.http.get(url);
 
   // return this.http.get(url,
   //   {

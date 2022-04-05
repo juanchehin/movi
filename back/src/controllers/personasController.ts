@@ -230,16 +230,18 @@ public async eliminarCliente(req: Request, res: Response) {
 
 public async actualizaCliente(req: Request, res: Response) {
 
+    var fechaFormat = req.body.FechaNac.split(" ")[0].split("-").reverse().join("-");
+
     var IdPersona = req.body.IdPersona;
     var IdTipoDocumento = req.body.IdTipoDocumento;
-    var Apellido = req.body.Apellidos;
-    var Nombre = req.body.Nombres;
+    var Apellidos = req.body.Apellidos;
+    var Nombres = req.body.Nombres;
     var Documento = req.body.Documento;
     var Password = req.body.Password;
     var Telefono = req.body.Telefono;
     var Sexo = req.body.Sexo;
     var Observaciones = req.body.Observaciones;
-    var FechaNac = req.body.FechaNac;
+    // var FechaNac = req.body.FechaNac;
     var Correo = req.body.Correo;
     var Usuario = req.body.Usuario;
     var Calle = req.body.Calle;
@@ -252,17 +254,25 @@ public async actualizaCliente(req: Request, res: Response) {
     var Ocupacion = req.body.Ocupacion;
     var Horario = req.body.Horario;
 
-    const result: any = await pool.query('CALL bsp_editar_cliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
-    [IdPersona,IdTipoDocumento,Apellido,Nombre,Documento,Password,Telefono,Sexo,Observaciones,FechaNac,Correo,Usuario,Calle,Piso,Departamento,Ciudad,Pais,Numero,Objetivo,Ocupacion,Horario]);
+    pool.query(`call bsp_editar_cliente('${IdPersona}','${IdTipoDocumento}','${Apellidos}','${Nombres}',
+    '${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${fechaFormat}',
+    '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
+    '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error : ", err);
+            res.status(404).json({ text: "Ocurrio un problema" });
+            return;
+        }
+    
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
 
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            Mensaje: result[0][0].Mensaje
-        });
-    }
-
-    res.json({ Mensaje: 'Ok' });
+        return res.json({ Mensaje: 'Ok' });
+    })
 
 }
 
@@ -369,7 +379,7 @@ public async actualizaProfesional(req: Request, res: Response) {
     var Estado = req.body.Estado; 
 
     pool.query(`call bsp_actualiza_profesional('${IdPersona}','${IdTipoDocumento}','${IdRol}','${Apellidos}','${Nombres}'
-    ,'${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}','${Correo}','${Usuario}'
+    ,'${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}',${FechaNac},'${Correo}','${Usuario}'
     ,'${Calle}','${Piso}','${Departamento}','${Ciudad}','${Pais}','${Numero}','${Estado}')`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error", err);
