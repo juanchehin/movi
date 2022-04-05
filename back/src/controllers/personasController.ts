@@ -438,18 +438,14 @@ public async listarPersonal(req: Request, res: Response): Promise<void> {
 
 public async listarProfesionales(req: Request, res: Response): Promise<void> {
 
+    console.log("pasa listarProfesionales")
+
     pool.query(`call bsp_listar_profesionales()`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error", err);
             return;
         }
-
-        if(result[0][0].Mensaje !== 'Ok'){
-            return res.json({
-                ok: false,
-                mensaje: result.Mensaje
-            });
-        }
+        
         return res.json(result);
         
     })
