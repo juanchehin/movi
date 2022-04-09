@@ -5,7 +5,7 @@ import { PagesComponent } from './pages.component';
 // Planes
 import { PlanComponent } from './planes/plan.component';
 import { PlanesComponent } from './planes/planes.component';
-import { EditarPlanComponent } from './planes/editarPlan.component';
+import { EditarPlanComponent } from './planes/editar-plan.component';
 
 // Caja
 import { CajasComponent } from './caja/cajas.component';

@@ -21,7 +21,7 @@ import { MedicionesComponent } from './mediciones/mediciones.component';
 import { EditarmedicionComponent } from './mediciones/editarmedicion.component';
 
 // Planes
-import { EditarPlanComponent } from './planes/editarPlan.component';
+import { EditarPlanComponent } from './planes/editar-plan.component';
 import { PlanComponent } from './planes/plan.component';
 import { PlanesComponent } from './planes/planes.component';
 

@@ -7,7 +7,7 @@ import { PlanService } from '../../services/plan/plan.service';
 
 @Component({
   selector: 'app-editarplan',
-  templateUrl: './editarplan.component.html',
+  templateUrl: './editar-plan.component.html',
   styles: []
 })
 export class EditarPlanComponent implements OnInit {
