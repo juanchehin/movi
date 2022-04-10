@@ -14,9 +14,6 @@ import { Plan } from '../../../models/plan.models';
 })
 export class ClienteComponent implements OnInit {
 
-  // latest snapshot
-  public webcamImage: any = null;
-
   // uploadedFiles: string;
 
   forma!: FormGroup;

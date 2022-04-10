@@ -210,16 +210,22 @@ public async listarClientes(req: Request, res: Response): Promise<void> {
 
 public async eliminarCliente(req: Request, res: Response) {
     var IdPersona = req.params.IdPersona;
-    const result: any = await pool.query('CALL bsp_eliminar_cliente(?)',IdPersona);
 
-    if(result[0][0].Mensaje !== 'Ok'){
-        return res.json({
-            ok: false,
-            mensaje: result.Mensaje
-        });
-    }
+    pool.query(`call bsp_eliminar_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
+        if(err){
+            console.log("error", err);
+            return;
+        }
 
-    return res.json({ mensaje: 'Ok' });
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                mensaje: result.Mensaje
+            });
+        }
+    
+        return res.json({ mensaje: 'Ok' });
+    })
 
 }
 

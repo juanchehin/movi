@@ -47,7 +47,6 @@ login( persona: Persona ): any {
     .pipe(
           map(
             ( resp: any ) => {
-              console.log("resp : ",resp);
                 if (resp.mensaje === 'Error de credenciales') {
                   return false;
                 }
@@ -402,11 +401,20 @@ eliminarCliente( IdPersona: any ) {
 
   let url = URL_SERVICIOS + '/personas/cliente/eliminar/' + IdPersona;
 
-  url += '?token=' + this.token;  // query
-  url += '&IdRol=' + this.IdRol;
+  // url += '?token=' + this.token;  // query
+  url += '?IdRol=' + this.IdRol;
 
+  return this.http.put(
+    url,
+    IdPersona,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
 
-  return this.http.delete(url );
+  // return this.http.delete(url );
 }
 
 // ==================================================
