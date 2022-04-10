@@ -1,17 +1,9 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from '../shared/shared.module';
-
-// import { ChartsModule } from 'ng2-charts';
-
 import { PagesComponent } from './pages.component';
-
 import { GraficasComponent } from './graficas/graficas.component';
 import { ReactiveFormsModule } from '@angular/forms';
-// import {SelectModule} from 'ng2-select';
-
 import { PAGES_ROUTES } from './pages.routes';
-
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -44,7 +36,6 @@ import { DashboardComponent } from '../shared/dashboard/dashboard.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
 import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
-import { ModalCamaraComponent } from './personas/clientes/modal-camara/modal-camara.component';
 
 
 
@@ -77,8 +68,7 @@ import { ModalCamaraComponent } from './personas/clientes/modal-camara/modal-cam
         // Otros
         AsistenciasComponent,
         GraficasComponent,
-        DashboardComponent,
-        ModalCamaraComponent,
+        DashboardComponent
     ],
     exports: [
         PagesComponent,
