@@ -1,12 +1,7 @@
-type NewType = string;
-
 export class Ingreso {
 
     constructor(
-        public IdPersona: NewType,
-//        public Fecha: string,
-        // public Monto: number,
-        // public Monto: number,
+        public IdPersona: any,
         public IdPlan?: number,
         public Cantidad?: number,
         public Detalle?: string

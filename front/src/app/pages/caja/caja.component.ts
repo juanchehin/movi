@@ -14,7 +14,7 @@ import { CajaService } from '../../services/caja/caja.service';
 export class CajaComponent implements OnInit {
   forma!: FormGroup;
   cargando = true;
-  persona: Persona[] = [];
+  persona: any;
   movimientosCliente: any[] = [];
   private date!: any;
   valor = 0;
@@ -61,14 +61,16 @@ cargarPersona() {
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
 
- /* this.personaService.damePersona( this.date )
+  this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
-              this.persona = resp;
+              console.log("resp es damePersona : ",resp)
+
+              this.persona = resp[0];
               this.cargando = false;
 
             });
-*/
+
 }
 
 // ==================================================
