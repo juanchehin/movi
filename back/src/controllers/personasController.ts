@@ -358,8 +358,6 @@ public async createProfesional(req: Request, res: Response) {
 // ==================================================
 public async actualizaProfesional(req: Request, res: Response) {
 
-    console.log("req.body en actualizaProfesional es : ", req.body);
-
     var IdPersona = req.body.IdPersona;
     var IdTipoDocumento = req.body.IdTipoDocumento;
     var Apellidos = req.body.Apellidos;
@@ -451,8 +449,6 @@ public async listarPersonal(req: Request, res: Response): Promise<void> {
 // ==================================================
 
 public async listarProfesionales(req: Request, res: Response): Promise<void> {
-
-    console.log("pasa listarProfesionales")
 
     pool.query(`call bsp_listar_profesionales()`, function(err: any, result: any, fields: any){
         if(err){

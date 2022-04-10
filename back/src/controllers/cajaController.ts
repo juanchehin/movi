@@ -77,8 +77,6 @@ public async listarIngresos(req: Request, res: Response): Promise<void> {
 
 public async createIngreso(req: Request, res: Response) {
 
-    console.log("req.body en createIngreso.ts es : ", req.body);
-
     var pIdPersona = req.body.IdPersona;
     var pIdPlan = req.body.IdPlan;
     var pCantidad = req.body.Cantidad;
@@ -109,7 +107,6 @@ public async createIngreso(req: Request, res: Response) {
 //        Lista los egresos - HACER PARA QUE SEA ENTRE FECHAS
 // ==================================================
 public async listarEgresos(req: Request, res: Response): Promise<void> {
-    console.log('req.body en caja listar egresos es ',req.body);
 
      var desde = req.query.desde || 0;
      desde  = Number(desde);

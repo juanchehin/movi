@@ -90,7 +90,6 @@ public async getOne(req: Request, res: Response): Promise<any> {
 
 
 public async actualizarMedicion(req: Request, res: Response): Promise<any> {
-    console.log("req.body en actualizarMedicion es : ", req.body);
 
     var Altura = req.body.Altura;
     var Peso = req.body.Peso;

@@ -76,7 +76,6 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
         ]
     }
     
-    console.log("pasa");
     // Respuesta
     res.status(200).json({
         ok: true,
@@ -87,7 +86,6 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
         menu: menu
     });
     
-    console.log("pasa 1");
 })
 
 
