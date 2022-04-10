@@ -55,19 +55,17 @@ cargarPlan() {
 
   this.date = this.activatedRoute.snapshot.paramMap.get('id');
 
-  /*this.planService.damePlan( this.date )
+  this.planService.damePlan( this.date )
              .subscribe( (resp: any) => {
 
-
-
-              this.CantClases = resp.CantClases;
-              this.Descripcion = resp.Descripcion;
-              this.EstadoPlan = resp.EstadoPlan;
-              this.Plan = resp.Plan;
-              this.Precio = resp.Precio;
+              this.CantClases = resp[0].CantClases;
+              this.Descripcion = resp[0].Descripcion;
+              this.EstadoPlan = resp[0].EstadoPlan;
+              this.Plan = resp[0].Plan;
+              this.Precio = resp[0].Precio;
               this.cargando = false;
 
-            });*/
+            });
 
 }
 // ==================================================

@@ -107,14 +107,14 @@ damePlan( termino: string ) {
   let url = URL_SERVICIOS + '/planes/' + termino;
   url += '?IdRol=' + this.personaService.IdRol;
 
-//   return this.http.get(
-//     url,
-//     {
-//       headers: {
-//         token: this.personaService.token
-//       }
-//     }
-// ).map( (resp: any) => resp[0] );
+  return this.http.get(
+    url,
+    {
+      headers: {
+        token: this.personaService.token
+      }
+    }
+);
 
 
 }
