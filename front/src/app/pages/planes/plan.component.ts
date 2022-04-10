@@ -59,6 +59,7 @@ export class PlanComponent implements OnInit {
 
       this.planesService.crearPlan( plan )
                 .subscribe( (resp: any) => {
+                  console.log("resp en plan es : ",resp)
                   if ( resp.Mensaje === 'Ok') {
                     Swal.fire({
                       position: 'top-end',

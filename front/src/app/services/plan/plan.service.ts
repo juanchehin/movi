@@ -86,6 +86,7 @@ crearPlan( plan: Plan) {
 
   let url = URL_SERVICIOS + '/planes';
   url += '?IdRol=' + this.personaService.IdRol;
+
   return this.http.post(
     url,
     plan,
@@ -145,8 +146,6 @@ actualizarPlan( plan: Plan, IdPlan: string ) {
 // ==================================================
 
 bajaPlan( IdPlan: string ) {
-
-  console.log("IdPlan bajaplan es : ",IdPlan);
 
   let url = URL_SERVICIOS + '/planes/baja/' + IdPlan;
   url += '?IdRol=' + this.personaService.IdRol;

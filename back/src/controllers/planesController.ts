@@ -101,7 +101,7 @@ public async create(req: Request, res: Response) {
         var Precio = req.body.Precio;
         var Descripcion = req.body.Descripcion;
    
-        pool.query(`call bsp_listar_planes('${Plan}','${Precio}','${Descripcion}','${CantClases}')`, function(err: any, result: any, fields: any){
+        pool.query(`call bsp_alta_plan('${Plan}','${Precio}','${Descripcion}','${CantClases}')`, function(err: any, result: any, fields: any){
             if(err){
                 console.log("error", err);
                 return;
