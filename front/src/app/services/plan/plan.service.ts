@@ -146,10 +146,12 @@ actualizarPlan( plan: Plan, IdPlan: string ) {
 
 bajaPlan( IdPlan: string ) {
 
+  console.log("IdPlan bajaplan es : ",IdPlan);
+
   let url = URL_SERVICIOS + '/planes/baja/' + IdPlan;
   url += '?IdRol=' + this.personaService.IdRol;
 
-  return this.http.post(
+  return this.http.put(
     url,
     IdPlan,
     {
