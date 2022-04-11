@@ -46,10 +46,13 @@ export class LoginComponent implements OnInit {
             return;
           }
 
-
+          Swal.fire({
+            icon: 'error',
+            title: 'Error de credenciales',
+            text: 'Error de credenciales',
+          });
       },
       ( error: any) => {
-        console.log("Error",error);
           Swal.fire({
             icon: 'error',
             title: 'Ha ocurrido un error',
@@ -58,9 +61,6 @@ export class LoginComponent implements OnInit {
       }
 
       );
-
-
-
 
   }
 
