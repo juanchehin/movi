@@ -1,6 +1,5 @@
 import { Router } from 'express';
-
-import indexController from '../controllers/indexController';
+const path = require('path');
 
 class IndexRoutes {
 
@@ -11,12 +10,10 @@ class IndexRoutes {
     }
 
     config(): void {
-        this.router.get('/', indexController.index);
+        this.router.get('/*', (req, res) => res.sendFile(path.join('C:/movi/build')));
     }
 
 }
 
 const indexRoutes = new IndexRoutes();
 export default indexRoutes.router;
-
-// export default new GameRoutes().router;
