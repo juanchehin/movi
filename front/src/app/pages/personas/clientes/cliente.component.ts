@@ -8,7 +8,7 @@ import { PlanService } from '../../../services/plan/plan.service';
 import { Plan } from '../../../models/plan.models';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cliente',
@@ -17,6 +17,8 @@ import { Observable, Subject } from 'rxjs';
 export class ClienteComponent implements OnInit {
 
   // uploadedFiles: string;
+
+  // === Codigo para webcam ===
   @Output()
   public pictureTaken = new EventEmitter<WebcamImage>();
 
@@ -36,6 +38,8 @@ export class ClienteComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
+  // === Fin Codigo para webcam ===
+
   forma!: FormGroup;
   respuesta: any;
   planes!: Plan;
@@ -44,12 +48,15 @@ export class ClienteComponent implements OnInit {
   aparecer = false;
   parametro: any;
   mostrarcamara = false;
+  mostrarcaptura = false;
+  img: any = null;
 
 
   constructor(
     public personaService: PersonaService,
     private router: Router,
-    public planService: PlanService
+    public planService: PlanService,
+    private _sanitizer: DomSanitizer
   ) {
    }
 
@@ -86,10 +93,8 @@ export class ClienteComponent implements OnInit {
       Objetivo: new FormControl(null),
       // IdPlan: new FormControl(null),
       Ocupacion: new FormControl(null),
-      Horario: new FormControl(null)
-
-//      EstadoCliente: new FormControl(null)
-
+      Horario: new FormControl(null),
+      Img: new FormControl(null)
     }, {
       // validator: this.sonIguales('Password' , 'Password2')
     })
@@ -151,8 +156,8 @@ sonIguales( campo1: string, campo2: string ): any {
       null,
       this.forma.value.Ocupacion,
       this.forma.value.Horario,
-      null
-
+      null,
+      this.img
     );
 
 
@@ -266,7 +271,7 @@ modificarCamara() {
  }
 }
 // ==================================================
-//  Codigo para la camara
+//  ***** Codigo para la camara *****
 // ==================================================
 
 public triggerSnapshot(): void {
@@ -290,6 +295,11 @@ public showNextWebcam(directionOrDeviceId: boolean|string): void {
 
 public handleImage(webcamImage: WebcamImage): void {
   console.info('received webcam image', webcamImage);
+  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+                 + webcamImage.imageAsBase64);
+                 this.mostrarcamara = false;
+                 this.mostrarcaptura = true;
+  // this.img = webcamImage.imageAsDataUrl;
   this.pictureTaken.emit(webcamImage);
 }
 
@@ -306,5 +316,8 @@ public get nextWebcamObservable(): Observable<boolean|string> {
   return this.nextWebcam.asObservable();
 }
 
+// ==================================================
+//  ***** Fin Codigo para la camara *****
+// ==================================================
 }
 

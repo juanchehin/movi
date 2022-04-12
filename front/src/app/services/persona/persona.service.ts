@@ -379,6 +379,8 @@ buscarClientePorPlan( Apellidos: string , Nombres: string , IdPlan: string  ): a
 // ==================================================
 crearCliente( cliente: Cliente ) {
 
+  console.log("clinetes es : ",cliente);
+
   let url = URL_SERVICIOS + '/personas/cliente';
   url += '?IdRol=' + this.IdRol;
 

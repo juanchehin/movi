@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6 form-group" *ngIf="!mostrarcamara">
+                        <div class="col-sm-6 form-group" *ngIf="!mostrarcamara && !mostrarcaptura">
                             <div>
                                 <img src="../../../../assets/images/sportsman.png" class="img-thumbnail" alt="Imagen" width="300" height="400">
                             </div>
@@ -43,9 +43,9 @@
                             <br>
                         </div>
 
-                        <div class="col-sm-6 form-group" *ngIf="mostrarcamara">
+                        <div class="col-sm-6 form-group">
                             <div style="text-align:center">
-                                <div>
+                                <div *ngIf="mostrarcamara">
                                     <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
                                         (initError)="handleInitError($event)"></webcam>
                                     <br/>
@@ -63,6 +63,10 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div *ngIf="mostrarcaptura">
+                                <img [src]="img" height="400" width="500" />
                             </div>
 
                             <h4 *ngIf="errors.length > 0">Messages:</h4>

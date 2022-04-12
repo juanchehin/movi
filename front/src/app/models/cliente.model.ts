@@ -24,7 +24,8 @@ export class Cliente {
         public ClasesDisponibles?: any,    // Creo que se calcula
         public Ocupacion?: string,
         public Horario?: string,
-        public IdPersona?: any
+        public IdPersona?: any,
+        public img?: string
         // public IdRol?: number,
         // public EstadoPer?: string,
     ) { }
