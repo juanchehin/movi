@@ -114,7 +114,11 @@ public async baja(req: Request, res: Response): Promise<void> {
 // ==================================================
 //        Inserta un cliente
 // ==================================================
-public async createCliente(req: Request, res: Response) {
+public async createCliente(req: any, res: Response) {
+
+    console.log("req body en createCliente es ",req.body)
+    console.log("req body .img en createCliente es ",req.body.img)
+    console.log("req body en createCliente es ",req.files)
 
     var IdTipoDocumento = req.body.IdTipoDocumento;
     var Apellidos = req.body.Apellidos;

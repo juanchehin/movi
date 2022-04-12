@@ -25,7 +25,7 @@ export class Cliente {
         public Ocupacion?: string,
         public Horario?: string,
         public IdPersona?: any,
-        public img?: string
+        public img?: File
         // public IdRol?: number,
         // public EstadoPer?: string,
     ) { }

@@ -50,6 +50,7 @@ export class ClienteComponent implements OnInit {
   mostrarcamara = false;
   mostrarcaptura = false;
   img: any = null;
+  file: File | undefined;
 
 
   constructor(
@@ -157,7 +158,7 @@ sonIguales( campo1: string, campo2: string ): any {
       this.forma.value.Ocupacion,
       this.forma.value.Horario,
       null,
-      this.img
+      this.file
     );
 
 
@@ -295,11 +296,19 @@ public showNextWebcam(directionOrDeviceId: boolean|string): void {
 
 public handleImage(webcamImage: WebcamImage): void {
   console.info('received webcam image', webcamImage);
-  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,'
                  + webcamImage.imageAsBase64);
-                 this.mostrarcamara = false;
-                 this.mostrarcaptura = true;
+
+  this.mostrarcamara = false;
+  this.mostrarcaptura = true;
+
+  // var imageBase64 = "image base64 data";
+  var blob = new Blob([this.img], {type: 'image/jpeg'});
+
+  this.file = new File([blob], 'imageFileName.jpeg');
   // this.img = webcamImage.imageAsDataUrl;
+
+  console.log("file es : ",this.file);
   this.pictureTaken.emit(webcamImage);
 }
 
