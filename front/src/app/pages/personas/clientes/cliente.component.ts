@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
 import { Cliente } from '../../../models/cliente.model';
 import { PlanService } from '../../../services/plan/plan.service';
 import { Plan } from '../../../models/plan.models';
-import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
-import { Observable, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -16,30 +14,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ClienteComponent implements OnInit {
 
-  // uploadedFiles: string;
-
-  // === Codigo para webcam ===
-  @Output()
-  public pictureTaken = new EventEmitter<WebcamImage>();
-
-  // toggle webcam on/off
-  public showWebcam = true;
-  public allowCameraSwitch = true;
-  public multipleWebcamsAvailable = false;
-  public deviceId: any;
-  public videoOptions: MediaTrackConstraints = {
-    // width: {ideal: 1024},
-    // height: {ideal: 576}
-  };
-  public errors: WebcamInitError[] = [];
-
-  // webcam snapshot trigger
-  private trigger: Subject<void> = new Subject<void>();
-  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
-
-  // === Fin Codigo para webcam ===
-
   forma!: FormGroup;
   respuesta: any;
   planes!: Plan;
@@ -47,11 +21,6 @@ export class ClienteComponent implements OnInit {
   cantPlanes = 0;
   aparecer = false;
   parametro: any;
-  mostrarcamara = false;
-  mostrarcaptura = false;
-  img: any = null;
-  file: File | undefined;
-
 
   constructor(
     public personaService: PersonaService,
@@ -64,10 +33,6 @@ export class ClienteComponent implements OnInit {
 
   ngOnInit() {
 
-    WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => {
-        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-      });
 
     this.forma = new FormGroup({
       // IdPersona: new FormControl(),
@@ -158,12 +123,12 @@ sonIguales( campo1: string, campo2: string ): any {
       this.forma.value.Ocupacion,
       this.forma.value.Horario,
       null,
-      this.file
+      null
     );
 
 
 
-    this.personaService.crearCliente( cliente )
+    this.personaService.crearCliente( cliente  )
               .subscribe( (resp: any) => {
 
                   /*  Transformar resp.mensaje a JSON para que se pueda acceder*/
@@ -257,76 +222,5 @@ cargarPlanes() {
 
 }
 
-// ==================================================
-//  Muestra/Oculta la camara
-// ==================================================
-
-modificarCamara() {
-
-  if(this.mostrarcamara == false)
-  {
-    this.mostrarcamara = true;
-  }
- else{
-    this.mostrarcamara = false;
- }
-}
-// ==================================================
-//  ***** Codigo para la camara *****
-// ==================================================
-
-public triggerSnapshot(): void {
-  this.trigger.next();
-}
-
-public toggleWebcam(): void {
-  this.showWebcam = !this.showWebcam;
-}
-
-public handleInitError(error: WebcamInitError): void {
-  this.errors.push(error);
-}
-
-public showNextWebcam(directionOrDeviceId: boolean|string): void {
-  // true => move forward through devices
-  // false => move backwards through devices
-  // string => move to device with given deviceId
-  this.nextWebcam.next(directionOrDeviceId);
-}
-
-public handleImage(webcamImage: WebcamImage): void {
-  console.info('received webcam image', webcamImage);
-  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,'
-                 + webcamImage.imageAsBase64);
-
-  this.mostrarcamara = false;
-  this.mostrarcaptura = true;
-
-  // var imageBase64 = "image base64 data";
-  var blob = new Blob([this.img], {type: 'image/jpeg'});
-
-  this.file = new File([blob], 'imageFileName.jpeg');
-  // this.img = webcamImage.imageAsDataUrl;
-
-  console.log("file es : ",this.file);
-  this.pictureTaken.emit(webcamImage);
-}
-
-public cameraWasSwitched(deviceId: string): void {
-  console.log('active device: ' + deviceId);
-  this.deviceId = deviceId;
-}
-
-public get triggerObservable(): Observable<void> {
-  return this.trigger.asObservable();
-}
-
-public get nextWebcamObservable(): Observable<boolean|string> {
-  return this.nextWebcam.asObservable();
-}
-
-// ==================================================
-//  ***** Fin Codigo para la camara *****
-// ==================================================
 }
 

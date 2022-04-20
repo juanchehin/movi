@@ -122,6 +122,11 @@
                                             grading
                                             </i>
                                     </button>
+                                    <button title="Tomar fotografia" [routerLink]="['/cliente/fotografia', cliente.IdPersona ] " class="btn btn-secondary ">
+                                      <i class="material-icons ">
+                                        photo_camera
+                                          </i>
+                                  </button>
                                     <button title="Borrar cliente" (click)="eliminarCliente( cliente ) " class="btn btn-danger ">
                                         <i class="material-icons ">
                                         delete

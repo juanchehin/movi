@@ -36,6 +36,7 @@ import { DashboardComponent } from '../shared/dashboard/dashboard.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
 import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
+import { FotografiaComponent } from './personas/clientes/fotografia.component';
 
 
 
@@ -49,6 +50,7 @@ import { HistoricoComponent } from './asistencias/historico.component';
         ProfesionalComponent,
         EditarprofesionalComponent,
         EditarclienteComponent,
+        FotografiaComponent,
         // Cajas
         CajaComponent,
         CajasComponent,

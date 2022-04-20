@@ -8,6 +8,7 @@ import planesRoutes from './routes/planesRoutes';
 import medicionesRoutes from './routes/medicionesRoutes';
 import cajaRoutes from './routes/cajaRoutes';
 import asistenciaRoutes from './routes/asistenciaRoutes';
+import uploadRoutes from './routes/uploadRoutes';
 
 
 
@@ -72,6 +73,7 @@ class Server {
         this.app.use('/api/mediciones', medicionesRoutes);
         this.app.use('/api/caja', cajaRoutes);
         this.app.use('/api/asistencias', asistenciaRoutes);
+        this.app.use('/api/upload', uploadRoutes);
 
     }
 

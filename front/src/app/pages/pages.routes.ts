@@ -26,6 +26,7 @@ import { ClienteComponent } from './personas/clientes/cliente.component';
 import { ClientesComponent } from './personas/clientes/clientes.component';
 import { EditarclienteComponent } from './personas/clientes/editarcliente.component';
 import { AsistenciasComponent } from './asistencias/asistencias.component';
+import { FotografiaComponent } from './personas/clientes/fotografia.component';
 
 // Profesionales
 import { ProfesionalesComponent } from './personas/profesionales/profesionales.component';
@@ -87,6 +88,7 @@ const pagesRoutes: Routes = [
             { path: 'cliente/asistencias/:id', component: AsistenciasComponent },
             { path: 'cliente/mediciones/:id', component: MedicionesComponent },
             { path: 'cliente/medicion/:id', component: MedicionComponent },
+            { path: 'cliente/fotografia/:id', component: FotografiaComponent },
             // Clientes
             { path: 'mantenimiento/clientes', component: ClientesComponent },
             { path: 'mantenimiento/cliente', component: ClienteComponent },

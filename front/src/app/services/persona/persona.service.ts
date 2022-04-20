@@ -274,15 +274,6 @@ damePersona( termino: string ): any {
   }
 
 // ==================================================
-//        Sube archivos - Peticion POST al server
-// ==================================================
-
-  uploadFile(formData: any) {
-    const url = 'http://localhost:3000/api/personas/upload';
-    return this.http.post(url, formData);
-  }
-
-// ==================================================
 //        Actualizar persona - VERIFICAR SU FUNCIONAMIENTO - 05/02/20
 // ==================================================
 

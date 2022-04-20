@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { PersonaService } from '../service.index';
 
 const base_url = environment.URL_SERVICIOS;
 
@@ -8,33 +9,46 @@ const base_url = environment.URL_SERVICIOS;
 })
 export class FileUploadService {
 
-  constructor() { }
+  token!: any;
 
+  constructor(public personaService: PersonaService) { }
+
+  // ==================================================
+//        actualizar foto
+// ==================================================
   async actualizarFoto(
     archivo: File,
-    tipo: 'usuarios'|'medicos'|'hospitales',
     id: string
   ) {
 
+    console.log("archivo : ", archivo);
+
     try {
 
-      const url = `${ base_url }/upload/${ tipo }/${ id }`;
+      const url = `${ base_url }/upload/cargar/${ id }`;
+
       const formData = new FormData();
       formData.append('imagen', archivo);
+
+      console.log("formData : ", formData);
 
       const resp = await fetch( url, {
         method: 'PUT',
         headers: {
-          'x-token': localStorage.getItem('token') || ''
+          token: this.personaService.token
         },
         body: formData
       });
 
+      console.log("resp.ok es : ",resp.ok);
+
       const data = await resp.json();
 
-      if ( data.ok ) {
+      if ( resp.ok ) {
+        console.log("pasa : ");
         return data.nombreArchivo;
       } else {
+        console.log("pasa 1: ");
         console.log(data.msg);
         return false;
       }

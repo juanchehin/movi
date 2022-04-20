@@ -7,7 +7,6 @@ import { Cliente } from 'src/app/models/cliente.model';
 import { AsistenciaService } from '../../../services/asistencia/asistencia.service';
 import { Asistencia } from '../../../models/asistencia.model';
 import { PlanService } from 'src/app/services/plan/plan.service';
-import { Plan } from 'src/app/models/plan.models';
 
 declare var swal: any;
 
@@ -135,8 +134,6 @@ cargarPlanes() {
 // ==================================================
 
   buscarCliente( ) {
-
-    console.log("buscarClientePorPlan  :")
 
     const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
     const Apellidos: any = inputElement.value || null;
