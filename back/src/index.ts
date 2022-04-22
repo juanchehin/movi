@@ -10,82 +10,75 @@ import cajaRoutes from './routes/cajaRoutes';
 import asistenciaRoutes from './routes/asistenciaRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 
-
-
 class Server {
+  public app: Application;
 
-    public app: Application;
-    
-    constructor() {
-        this.app = express();
-        this.config();
-        this.routes();
-    }
+  constructor() {
+    this.app = express();
+    this.config();
+    this.routes();
+  }
 
-    config(): void {
-        // this.app.set('port', process.env.PORT || 3000);
-        this.app.set('port', 3000);
-        // CORS
-        /*this.app.use(function(req, res, next) {
+  config(): void {
+    // this.app.set('port', process.env.PORT || 3000);
+    this.app.set('port', 3000);
+    // CORS
+    /*this.app.use(function(req, res, next) {
             res.header("Access-Control-Allow-Origin: http://localhost", "*");
             // res.header("Access-Control-Allow-Origin", "localhost:4220");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.header("Access-Control-Allow-Methods", "POST, GET, PUT , DELETE, OPTIONS");
             next();
           });*/
-          
-        this.app.use(cors());
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({extended: false}));
-        
-    }
 
-// ==================================================
-//        RUTAS
-// ==================================================
-    routes(): void {
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
+  }
 
-        // ******* Configuracion de CORS ********
-        // Creo una lista blanca
-        var listaBlanca = ['localhost:4200','http://localhost:4200']
-        // Creo la configuracion
-          var configuracionCORS = {
-            // Creo la funcion 'origin'
-            origin: function (req:any, res:any) {
-              // console.log('req es : ', req);
-              // console.log('listaBlanca.indexOf(req) es : ', listaBlanca.indexOf(req));
-              // Pregunro si se encontro el valor ; -1 si no se encuentra dicho valor
-              if (listaBlanca.indexOf(req) !== -1) {
-                res(null, true)
-              } else {
-                res(new Error('Bloqueado por CORS'))
-                return;
-              }
-            }
-          }
+  // ==================================================
+  //        RUTAS
+  // ==================================================
+  routes(): void {
+    // ******* Configuracion de CORS ********
+    // Creo una lista blanca
+    var listaBlanca = ['localhost:4200', 'http://localhost:4200'];
+    // Creo la configuracion
+    var configuracionCORS = {
+      // Creo la funcion 'origin'
+      origin: function (req: any, res: any) {
+        // console.log('req es : ', req);
+        // console.log('listaBlanca.indexOf(req) es : ', listaBlanca.indexOf(req));
+        // Pregunro si se encontro el valor ; -1 si no se encuentra dicho valor
+        if (listaBlanca.indexOf(req) !== -1) {
+          res(null, true);
+        } else {
+          //res(new Error('Bloqueado por CORS'));
+          res(null, true);
+          return;
+        }
+      },
+    };
 
+    this.app.use('/', cors(configuracionCORS), indexRoutes);
+    this.app.use('/api/personas', personasRoutes);
+    this.app.use('/api/tiposdocumentos', tiposdocumentosRoutes);
+    this.app.use('/api/login', loginRoutes);
+    this.app.use('/api/planes', planesRoutes);
+    this.app.use('/api/mediciones', medicionesRoutes);
+    this.app.use('/api/caja', cajaRoutes);
+    this.app.use('/api/asistencias', asistenciaRoutes);
+    this.app.use('/api/upload', uploadRoutes);
+  }
 
-        this.app.use('/', cors(configuracionCORS),indexRoutes);
-        this.app.use('/api/personas', personasRoutes);
-        this.app.use('/api/tiposdocumentos', tiposdocumentosRoutes);
-        this.app.use('/api/login', loginRoutes);
-        this.app.use('/api/planes', planesRoutes);
-        this.app.use('/api/mediciones', medicionesRoutes);
-        this.app.use('/api/caja', cajaRoutes);
-        this.app.use('/api/asistencias', asistenciaRoutes);
-        this.app.use('/api/upload', uploadRoutes);
-
-    }
-
-// ==================================================
-//   Inicio el servicio en el puerto 3000
-// ==================================================
-    start() {
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server en puerto', this.app.get('port'));
-        });
-    }
-
+  // ==================================================
+  //   Inicio el servicio en el puerto 3000
+  // ==================================================
+  start() {
+    this.app.listen(this.app.get('port'), () => {
+      console.log('Server en puerto', this.app.get('port'));
+    });
+  }
 }
 
 const server = new Server();

@@ -4,16 +4,15 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 
-import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-fotografia',
-  templateUrl: './fotografia.component.html'
+  templateUrl: './fotografia.component.html',
 })
 export class FotografiaComponent implements OnInit {
-
   // uploadedFiles: string;
 
   // === Codigo para webcam ===
@@ -34,7 +33,9 @@ export class FotografiaComponent implements OnInit {
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+  private nextWebcam: Subject<boolean | string> = new Subject<
+    boolean | string
+  >();
 
   // === Fin Codigo para webcam ===
 
@@ -47,134 +48,142 @@ export class FotografiaComponent implements OnInit {
   mostrarcamara = false;
   mostrarcaptura = false;
   img: any = null;
+  imgBase64: any = null;
   public imagenSubir: any;
   public imgTemp: any = null;
   id: any;
-
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public fileUploadService: FileUploadService,
     private _sanitizer: DomSanitizer
-  ) {
-   }
-
+  ) {}
 
   ngOnInit() {
-
-    WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => {
+    WebcamUtil.getAvailableVideoInputs().then(
+      (mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-      });
+      }
+    );
 
     this.forma = new FormGroup({
-      IdRol: new FormControl('0', Validators.required )
-
-    })
-
+      IdRol: new FormControl('0', Validators.required),
+    });
   }
 
+  // ==================================================
+  //        Nuevo foto
+  // ==================================================
 
-// ==================================================
-//        Nuevo foto
-// ==================================================
-
-registrarFoto() {
-
+  registrarFoto() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
     const resp = this.fileUploadService
-      .actualizarFoto( this.imagenSubir, this.id )
-      .then( img => {
-        if(img){
+      .actualizarFoto(this.imagenSubir, this.id)
+      .then((img) => {
+        if (img) {
           Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
-        }
-        else{
+        } else {
           Swal.fire('Error', 'No se pudo subir la imagen', 'error');
         }
 
         // this.modalImagenService.nuevaImagen.emit(img);
-
-      }).catch( err => {
+      })
+      .catch((err) => {
         console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');
-    })
+      });
 
-    console.log("resp resp : ",resp);
-
-}
-
-
-// ==================================================
-//  Muestra/Oculta la camara
-// ==================================================
-
-modificarCamara() {
-
-  if(this.mostrarcamara == false)
-  {
-    this.mostrarcamara = true;
+    console.log('resp resp : ', resp);
   }
- else{
+
+  // ==================================================
+  //  Muestra/Oculta la camara
+  // ==================================================
+
+  modificarCamara() {
+    if (this.mostrarcamara == false) {
+      this.mostrarcamara = true;
+    } else {
+      this.mostrarcamara = false;
+    }
+  }
+  // ==================================================
+  //  ***** Codigo para la camara *****
+  // ==================================================
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public toggleWebcam(): void {
+    this.showWebcam = !this.showWebcam;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public showNextWebcam(directionOrDeviceId: boolean | string): void {
+    // true => move forward through devices
+    // false => move backwards through devices
+    // string => move to device with given deviceId
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage);
+    this.img = this._sanitizer.bypassSecurityTrustResourceUrl(
+      'data:image/jpeg;base64,' + webcamImage.imageAsBase64
+    );
+
+    this.imgBase64 = webcamImage.imageAsBase64;
+
     this.mostrarcamara = false;
- }
+    this.mostrarcaptura = true;
+
+    const imageBlob = this.dataURItoBlob(this.imgBase64);
+    console.log(this, imageBlob, 'image blob es');
+
+    //this.imagenSubir = new File([imageBlob], 'imageFileName.png');
+    this.imagenSubir = new File([imageBlob], 'imageFileName.png', {
+      type: 'image/png',
+    });
+
+    // var imageBase64 = "image base64 data";
+    //var blob = new Blob([this.img], { type: 'image/png' });
+    //this.imagenSubir = new File([blob], 'imageFileName.png');
+    // this.img = webcamImage.imageAsDataUrl;
+
+    console.log('imagenSubir es : ', this.imagenSubir);
+    this.pictureTaken.emit(this.imagenSubir);
+  }
+  dataURItoBlob(dataURI: any) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    console.log('active device: ' + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
+  }
+
+  // ==================================================
+  //  ***** Fin Codigo para la camara *****
+  // ==================================================
 }
-// ==================================================
-//  ***** Codigo para la camara *****
-// ==================================================
-
-public triggerSnapshot(): void {
-  this.trigger.next();
-}
-
-public toggleWebcam(): void {
-  this.showWebcam = !this.showWebcam;
-}
-
-public handleInitError(error: WebcamInitError): void {
-  this.errors.push(error);
-}
-
-public showNextWebcam(directionOrDeviceId: boolean|string): void {
-  // true => move forward through devices
-  // false => move backwards through devices
-  // string => move to device with given deviceId
-  this.nextWebcam.next(directionOrDeviceId);
-}
-
-public handleImage(webcamImage: WebcamImage): void {
-  console.info('received webcam image', webcamImage);
-  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,'
-                 + webcamImage.imageAsBase64);
-
-  this.mostrarcamara = false;
-  this.mostrarcaptura = true;
-
-  // var imageBase64 = "image base64 data";
-  var blob = new Blob([this.img], {type: 'image/png'});
-  this.imagenSubir = new File([blob], 'imageFileName.png');
-  // this.img = webcamImage.imageAsDataUrl;
-
-  console.log("imagenSubir es : ",this.imagenSubir);
-  this.pictureTaken.emit(webcamImage);
-}
-
-public cameraWasSwitched(deviceId: string): void {
-  console.log('active device: ' + deviceId);
-  this.deviceId = deviceId;
-}
-
-public get triggerObservable(): Observable<void> {
-  return this.trigger.asObservable();
-}
-
-public get nextWebcamObservable(): Observable<boolean|string> {
-  return this.nextWebcam.asObservable();
-}
-
-// ==================================================
-//  ***** Fin Codigo para la camara *****
-// ==================================================
-}
-
