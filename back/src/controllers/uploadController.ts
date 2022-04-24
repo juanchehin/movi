@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
-
+const fs = require('fs');
 
 class UploadController {
 
@@ -12,10 +12,8 @@ public async subirImagen(req: any, res: Response){
 
     const id = req.params.id;
 
-    console.log("Req es : ",req);
-
     // Validar que exista un archivo
-    if (!req.files || Object.keys(req.files).length === 0) {
+    if (!req.file || Object.keys(req.file).length === 0) {
         return res.status(400).json({
             ok: false,
             msg: 'No hay ningún archivo'
@@ -23,11 +21,11 @@ public async subirImagen(req: any, res: Response){
     }
 
     // Procesar la imagen...
-    const file = req.files.imagen;
+    const file = req.file.originalname;
 
-    const nombreCortado = file.name.split('.'); // wolverine.1.3.jpg
+    const nombreCortado = file.split('.'); // wolverine.1.3.jpg
     const extensionArchivo = nombreCortado[ nombreCortado.length - 1 ];
-    
+
     // Validar extension
     const extensionesValidas = ['png','jpg','jpeg'];
     if ( !extensionesValidas.includes( extensionArchivo ) ) {
@@ -41,10 +39,13 @@ public async subirImagen(req: any, res: Response){
     const nombreArchivo = `${ id }.${ extensionArchivo }`;
 
     // Path para guardar la imagen
-    const path = `./uploads/${ nombreArchivo }`;
+    const path = `./build/uploads/clientes/${ req.file.filename }`;
+
+    // Path para guardar la imagen
+    const filePathMove = `./build/uploads/clientes/${ nombreArchivo }`;
 
     // Mover la imagen
-    file.mv( path , (err: any) => {
+    fs.rename( path , filePathMove, (err: any) => {
         if (err){
             console.log(err)
             return res.status(500).json({
@@ -62,6 +63,7 @@ public async subirImagen(req: any, res: Response){
             nombreArchivo
         });
     });
+
 }
 
 // ==================================================

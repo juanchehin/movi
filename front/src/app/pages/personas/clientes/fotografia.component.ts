@@ -144,20 +144,28 @@ public showNextWebcam(directionOrDeviceId: boolean|string): void {
 }
 
 public handleImage(webcamImage: WebcamImage): void {
-  console.info('received webcam image', webcamImage);
-  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,'
-                 + webcamImage.imageAsBase64);
+
+  const imageBlob = this.dataURItoBlob(webcamImage.imageAsBase64);
 
   this.mostrarcamara = false;
   this.mostrarcaptura = true;
 
-  // var imageBase64 = "image base64 data";
-  var blob = new Blob([this.img], {type: 'image/png'});
-  this.imagenSubir = new File([blob], 'imageFileName.png');
-  // this.img = webcamImage.imageAsDataUrl;
+  this.imagenSubir = new File([imageBlob], 'imageFileName.png', {
+    type: 'image/png',
+  });
 
-  console.log("imagenSubir es : ",this.imagenSubir);
-  this.pictureTaken.emit(webcamImage);
+  this.pictureTaken.emit(this.imagenSubir);
+}
+
+dataURItoBlob(dataURI: any) {
+  const byteString = window.atob(dataURI);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const int8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    int8Array[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([int8Array], { type: 'image/png' });
+  return blob;
 }
 
 public cameraWasSwitched(deviceId: string): void {
