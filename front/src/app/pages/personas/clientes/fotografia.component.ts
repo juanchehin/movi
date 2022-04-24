@@ -136,6 +136,9 @@ public toggleWebcam(): void {
 public handleInitError(error: WebcamInitError): void {
   this.errors.push(error);
   Swal.fire('Error', 'Chequee que su camara este habilitada y conceda los permisos del navegador', 'error');
+  this.habilitarboton = false;
+  this.mostrarcamara = false;
+  this.mostrarcaptura = false;
 }
 
 public showNextWebcam(directionOrDeviceId: boolean|string): void {
