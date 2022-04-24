@@ -43,6 +43,7 @@ export class FotografiaComponent implements OnInit {
   cargando = true;
   aparecer = false;
   parametro: any;
+  habilitarboton = false;
 
   mostrarcamara = false;
   mostrarcaptura = false;
@@ -134,6 +135,7 @@ public toggleWebcam(): void {
 
 public handleInitError(error: WebcamInitError): void {
   this.errors.push(error);
+  Swal.fire('Error', 'Chequee que su camara este habilitada y conceda los permisos del navegador', 'error');
 }
 
 public showNextWebcam(directionOrDeviceId: boolean|string): void {
@@ -151,6 +153,7 @@ public handleImage(webcamImage: WebcamImage): void {
 
   this.mostrarcamara = false;
   this.mostrarcaptura = true;
+  this.habilitarboton = true;
 
   this.imagenSubir = new File([imageBlob], 'imageFileName.png', {
     type: 'image/png',
@@ -160,7 +163,7 @@ public handleImage(webcamImage: WebcamImage): void {
 }
 
 public cameraWasSwitched(deviceId: string): void {
-  console.log('active device: ' + deviceId);
+  // console.log('active device: ' + deviceId);
   this.deviceId = deviceId;
 }
 

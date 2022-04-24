@@ -42,7 +42,7 @@
             <li>{{error | json}}</li>
         </ul>
         <br>
-        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar foto</button>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" [disabled]="!habilitarboton">Cargar foto</button>
         <br>
     </form>
 </div>
