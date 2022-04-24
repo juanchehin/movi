@@ -144,6 +144,8 @@ public showNextWebcam(directionOrDeviceId: boolean|string): void {
 }
 
 public handleImage(webcamImage: WebcamImage): void {
+  this.img = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,'
+                 + webcamImage.imageAsBase64);
 
   const imageBlob = this.dataURItoBlob(webcamImage.imageAsBase64);
 
@@ -155,17 +157,6 @@ public handleImage(webcamImage: WebcamImage): void {
   });
 
   this.pictureTaken.emit(this.imagenSubir);
-}
-
-dataURItoBlob(dataURI: any) {
-  const byteString = window.atob(dataURI);
-  const arrayBuffer = new ArrayBuffer(byteString.length);
-  const int8Array = new Uint8Array(arrayBuffer);
-  for (let i = 0; i < byteString.length; i++) {
-    int8Array[i] = byteString.charCodeAt(i);
-  }
-  const blob = new Blob([int8Array], { type: 'image/png' });
-  return blob;
 }
 
 public cameraWasSwitched(deviceId: string): void {
@@ -184,5 +175,17 @@ public get nextWebcamObservable(): Observable<boolean|string> {
 // ==================================================
 //  ***** Fin Codigo para la camara *****
 // ==================================================
+
+dataURItoBlob(dataURI: any) {
+  const byteString = window.atob(dataURI);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const int8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    int8Array[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([int8Array], { type: 'image/png' });
+  return blob;
+}
+
 }
 
