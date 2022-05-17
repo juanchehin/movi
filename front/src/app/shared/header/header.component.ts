@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/service.index';
 import { PersonaService } from '../../services/persona/persona.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Medicion } from '../../models/medicion.model';
-import { Persona } from 'src/app/models/persona.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['../../app.component.css']
+  styleUrls: []
 })
 export class HeaderComponent implements OnInit {
 

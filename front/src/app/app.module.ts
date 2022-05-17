@@ -16,6 +16,7 @@ import { LoginComponent } from './shared/login/login.component';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ServiceModule } from './services/service.module';
+import { RouterModule } from '@angular/router';
 // import { NgSelectModule } from '@ng-select/ng-select';
 
 
@@ -32,6 +33,7 @@ import { ServiceModule } from './services/service.module';
     // NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule,
     ServiceModule
   ],
   providers: [],
