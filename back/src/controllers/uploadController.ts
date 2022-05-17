@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../database';
+const path = require('path');
 const fs = require('fs');
 
 class UploadController {
@@ -69,22 +69,23 @@ public async subirImagen(req: any, res: Response){
 // ==================================================
 //        retornaImagen
 // ==================================================
-
-
 public async retornaImagen(req: Request, res: Response): Promise<any> {
-    const { id } = req.params;
+    
+    const id = req.params.id;
 
-    pool.query(`call bsp_dame_tipodocumento('${id}')`, function(err: any, result: any, fields: any){
-        if(err){
-            console.log("error", err);
-            return;
-        }
+    const pathImg = path.join( __dirname, `../uploads/clientes/${ id }` );
 
-        if (result.length > 0) {
-            return res.json(result[0]);
-        }
-        res.status(404).json({ text: "El tipoDoc no existe" });
-    })
+    console.log("pathImg : ",pathImg)
+
+    // imagen por defecto
+    if ( fs.existsSync( pathImg ) ) {
+        res.sendFile( pathImg );
+    } else {
+        res.json({
+            ok: false,
+            msg: 'Imagen inexistente'
+        });
+    }
 
 }
 

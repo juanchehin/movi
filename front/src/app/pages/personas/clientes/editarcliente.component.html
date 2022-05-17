@@ -9,10 +9,10 @@
                     <div class="alert alert-primary" role="alert">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <div>
-                                    <img src="../../../../assets/images/sportsman.png" class="img-thumbnail" alt="Imagen" width="300" height="400">
-                                </div>
+                                <img *ngIf="imgTemp" src="../../../../assets/images/sportsman.png" class="img-thumbnail" alt="Imagen" width="300" height="400">
+                                <img *ngIf="!imgTemp" class="img-thumbnail" alt="Imagen" width="300" height="400">
                             </div>
+
                             <div class="col-sm-6 form-group">
                                 <label>Apellidos : </label>
                                 <input formControlName="Apellidos" [value]="Apellidos" name="Apellidos" type="text" class="form-control" placeholder="Apellidos de la persona">

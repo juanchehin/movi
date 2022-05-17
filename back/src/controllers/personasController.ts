@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction, response } from 'express';
 import pool from '../database';
+const fs = require('fs');
+
 const path = require('path');
 
 class PersonasController {
@@ -33,6 +35,7 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async getOne(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
+    let datos: any;
 
     pool.query(`call bsp_dame_persona('${id}')`, function(err: any, result: any, fields: any){
         if(err){
@@ -40,9 +43,20 @@ public async getOne(req: Request, res: Response): Promise<any> {
             res.status(404).json({ text: "La personas no existe" });
         }
         
-        return res.json(result[0]);
+        datos = result[0]
     })
-        
+
+    const pathImg = path.join( __dirname, `../uploads/clientes/${ id }.png` );
+    console.log("pasa pathImg ",pathImg)
+
+    if ( fs.existsSync( pathImg ) ) {
+        console.log("pasa if ")
+        return res.sendFile((pathImg), datos);
+    } else {
+        console.log("pasa else ")
+        return res.json(datos);
+    }
+
 }
 
 // ==================================================

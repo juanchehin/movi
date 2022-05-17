@@ -17,6 +17,8 @@ export class EditarclienteComponent implements OnInit {
   sonIguales = false;
   banderaPass = false;
 
+  public imgTemp: any = null;
+
   Correo!: string;
   Password!: string;
   IdTipoDocumento!: number;
@@ -96,7 +98,7 @@ cargarCliente() {
   this.personaService.damePersona( this.date )
              .subscribe( (resp: any) => {
 
-
+              console.log("resp es : ",resp)
               this.persona = resp[0];
 
               this.Correo = this.persona.Correo;
