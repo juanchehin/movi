@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../database';
+import mysqldump from 'mysqldump';
 
 class SettingsController {
 
@@ -8,18 +8,26 @@ class SettingsController {
 // ==================================================
 public async backup(req: Request, res: Response) {
 
-    console.log("pasa backup")
-
-    pool.query(`mysqldump movi > movi.sql`, function(err: any, result: any, fields: any){
-        if(err){
-            console.log("error", err);
-            res.json({ Mensaje: err });
-            return;
-        }
-        
+    try{
+        await mysqldump({
+            connection: {
+                host: 'localhost',
+                user: 'root',
+                password: 'a',
+                database: 'movi',
+            },
+            dumpToFile: './movi.sql',
+        });
         res.json({ Mensaje: 'Ok' });
-    })
+    }
+    catch{
+        res.json({ Mensaje: 'Error' });
+    }
+    
 
+
+    
+    
 }
 
 }

@@ -13,8 +13,6 @@ var token = req.headers.token;
 
 jwt.verify(token , SEED, (err: any,decoded: any) =>{
 
-    console.log("token es : ",token);
-    
     if(err){
         return res.status(401).json({
             ok:false,
