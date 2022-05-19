@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SettingsService } from 'src/app/services/service.index';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  date: any;
+  persona: any;
+
+  constructor(
+    public settingService: SettingsService,
+  ) {
+
+  }
 
   ngOnInit(): void {
   }
+
 
 }

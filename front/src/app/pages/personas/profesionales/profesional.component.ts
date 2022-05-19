@@ -1,4 +1,4 @@
-import { Component, OnInit , HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PersonaService } from '../../../services/service.index';
 import Swal from 'sweetalert2';
