@@ -63,7 +63,8 @@ pool.query(`call bsp_dame_persona_correo_pass('${email}','${pass}')`, function(e
                 { titulo: 'Personal', url: '/mantenimiento/profesionales', icono :'group' },
                 { titulo: 'Clientes', url: '/mantenimiento/clientes' , icono :'sports_kabaddi'},
                 { titulo: 'Caja', url: '/cajas' , icono :'attach_money'},
-                { titulo: 'Planes', url: '/mantenimiento/planes' , icono :'dehaze'}
+                { titulo: 'Planes', url: '/mantenimiento/planes' , icono :'dehaze'},
+                { titulo: 'Configuracion', url: '/settings' , icono :'settings'}
             ]
     }
     

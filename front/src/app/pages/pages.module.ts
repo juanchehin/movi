@@ -37,6 +37,7 @@ import { AsistenciasComponent } from './asistencias/asistencias.component';
 import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
 import { FotografiaComponent } from './personas/clientes/fotografia.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -70,7 +71,8 @@ import { FotografiaComponent } from './personas/clientes/fotografia.component';
         // Otros
         AsistenciasComponent,
         GraficasComponent,
-        DashboardComponent
+        DashboardComponent,
+        SettingsComponent
     ],
     exports: [
         PagesComponent,
