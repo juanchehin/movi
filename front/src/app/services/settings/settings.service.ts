@@ -25,10 +25,10 @@ export class SettingsService {
 
 backup() {
 
-  let url = URL_SERVICIOS + '/settings/backup';
-  url += '?IdRol=' + this.personaService.IdRol;
 
-  return this.http.get(url,
+  const url = URL_SERVICIOS + '/settings/backup';
+
+  return this.http.get (url,
     {
       headers: {
         token: this.personaService.token

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { SettingsService } from 'src/app/services/service.index';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-settings',
@@ -13,7 +13,7 @@ export class SettingsComponent implements OnInit {
   persona: any;
 
   constructor(
-    public settingService: SettingsService,
+    public settingsService: SettingsService,
   ) {
 
   }
@@ -21,5 +21,36 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+// ==================================================
+//        Backup
+// ==================================================
+
+backup() {
+
+  Swal.fire({
+    title: '¿Esta seguro?',
+    text: 'Recuerde que esto puede tardar unos minutos',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Aceptar'
+  })
+  .then( confirmar => {
+
+    if (confirmar) {
+      console.log("pasa confirmar")
+
+      this.settingsService.backup( )
+      .subscribe( (resp: any) => {
+        console.log("resp en settings es : ",resp)
+
+        return;
+      });
+
+      // this.planService.backup();
+    }
+  })
+}
 
 }

@@ -9,6 +9,7 @@ import medicionesRoutes from './routes/medicionesRoutes';
 import cajaRoutes from './routes/cajaRoutes';
 import asistenciaRoutes from './routes/asistenciaRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import settingsRoutes from './routes/settingsRoutes';
 
 
 
@@ -26,13 +27,14 @@ class Server {
         // this.app.set('port', process.env.PORT || 3000);
         this.app.set('port', 3000);
         // CORS
-        /*this.app.use(function(req, res, next) {
-            res.header("Access-Control-Allow-Origin: http://localhost", "*");
-            // res.header("Access-Control-Allow-Origin", "localhost:4220");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            res.header("Access-Control-Allow-Methods", "POST, GET, PUT , DELETE, OPTIONS");
-            next();
-          });*/
+        // this.app.use(function(req, res, next) {
+        //     console.log('req es : ', req);
+        //     res.header("Access-Control-Allow-Origin: http://localhost", "*");
+        //     // res.header("Access-Control-Allow-Origin", "localhost:4220");
+        //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        //     res.header("Access-Control-Allow-Methods", "POST, GET, PUT , DELETE, OPTIONS");
+        //     next();
+        //   });
           
         this.app.use(cors());
         this.app.use(express.json());
@@ -47,25 +49,24 @@ class Server {
 
         // ******* Configuracion de CORS ********
         // Creo una lista blanca
-        var listaBlanca = ['localhost:4200','http://localhost:4200']
-        // Creo la configuracion
-          var configuracionCORS = {
-            // Creo la funcion 'origin'
-            origin: function (req:any, res:any) {
-              // console.log('req es : ', req);
-              // console.log('listaBlanca.indexOf(req) es : ', listaBlanca.indexOf(req));
-              // Pregunro si se encontro el valor ; -1 si no se encuentra dicho valor
-              if (listaBlanca.indexOf(req) !== -1) {
-                res(null, true)
-              } else {
-                res(new Error('Bloqueado por CORS'))
-                return;
-              }
-            }
-          }
+        // var listaBlanca = ['*']
+        // // Creo la configuracion
+        //   var configuracionCORS = {
+        //     origin: function (req:any, res:any) {
+        //       // console.log('req es : ', req);
+        //       // console.log('listaBlanca.indexOf(req) es : ', listaBlanca.indexOf(req));
+        //       // Pregunro si se encontro el valor ; -1 si no se encuentra dicho valor
+        //       if (listaBlanca.indexOf(req) !== -1) {
+        //         res(null, true)
+        //       } else {
+        //         res(new Error('Bloqueado por CORS'))
+        //         return;
+        //       }
+        //     }
+        //   }
 
 
-        this.app.use('/', cors(configuracionCORS),indexRoutes);
+        // this.app.use('/', cors(configuracionCORS),indexRoutes);
         this.app.use('/api/personas', personasRoutes);
         this.app.use('/api/tiposdocumentos', tiposdocumentosRoutes);
         this.app.use('/api/login', loginRoutes);
@@ -74,6 +75,7 @@ class Server {
         this.app.use('/api/caja', cajaRoutes);
         this.app.use('/api/asistencias', asistenciaRoutes);
         this.app.use('/api/upload', uploadRoutes);
+        this.app.use('/api/settings', settingsRoutes);
 
     }
 
