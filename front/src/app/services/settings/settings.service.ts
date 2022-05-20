@@ -37,5 +37,22 @@ backup() {
 
 }
 
+// ==================================================
+//   Realiza sincronizacion con drive
+// ==================================================
+
+sinc() {
+
+  const url = URL_SERVICIOS + '/settings/drive';
+
+  return this.http.get (url,
+    {
+      headers: {
+        token: this.personaService.token
+      }
+    });
+
+}
+
 
 }
