@@ -37,7 +37,7 @@
                             <th>Nombre</th>
                             <th>Fecha Creacion</th>
                             <th>Fecha Sincronizacion</th>
-                            <th></th>
+                            <th>Sincronizar</th>
                         </tr>
                     </thead>
 
@@ -51,7 +51,7 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
 
-                                    <button [disabled]="backup.FechaSinc === 'NULL'" (click)="sinc()" class="btn btn-success">
+                                    <button [disabled]="backup.FechaSinc === 'NULL'" (click)="sinc(backup.Nombre,backup.IdBackup)" class="btn btn-success" title="sincronizar">
                                         <i class="material-icons">
                                         backup
                                         </i>

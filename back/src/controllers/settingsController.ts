@@ -10,11 +10,12 @@ const { google } = require('googleapis');
 class SettingsController {
 
 // ==================================================
-//       Backup
+//      Nuevo Backup
 // ==================================================
 public async backup(req: Request, res: Response) {
 
     let dateTime = new Date();
+    let name = `movi-${dateTime.toISOString().slice(0, 10)}.sql`;
     
     try{
         await mysqldump({
@@ -24,21 +25,33 @@ public async backup(req: Request, res: Response) {
                 password: keys.database.password!,
                 database: keys.database.database!,
             },
-            dumpToFile: `./backup/movi-${dateTime.toISOString().slice(0, 10)}.sql`,
+            dumpToFile: `./backup/${name}`
         });
+
+        // Cargo un nuevo Backup en BD
+        pool.query(`call bsp_alta_backup('${name}')`, function(err: any, result: any, fields: any){
+          if(err){
+              console.log("error", err);
+              return;
+          }
+          // res.json(result);
+        })
+
         res.json({ Mensaje: 'Ok' });
     }
     catch{
         res.json({ Mensaje: 'Error' });
     }
-      
-    
+   
 }
 
 // ==================================================
 //       sinc
 // ==================================================
 public async sinc(req: Request, res: Response) {
+
+  var name = req.params.name;
+  var id = req.params.id;
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive'];
@@ -95,11 +108,11 @@ function authorize(credentials: any, callback: any) {
   function uploadFile(auth: any) {
     const drive = google.drive({version: 'v3', auth});
     const fileMetadata = {
-      'name': 'movi2022-05-20.sql'
+      'name': name
     };
     const media = {
       mimeType: 'text/sql',
-      body: fs.createReadStream('./movi2022-05-20.sql')
+      body: fs.createReadStream(`./backup/${name}`)
     };
     drive.files.create({
       resource: fileMetadata,
@@ -120,6 +133,14 @@ function authorize(credentials: any, callback: any) {
     // Authorize a client with credentials, then call the Google Drive API.
     authorize(JSON.parse(content), uploadFile);
   });
+
+  // Cargo un nuevo Backup en BD
+  pool.query(`call bsp_backup_sinc('${id}')`, function(err: any, result: any, fields: any){
+    if(err){
+        console.log("error", err);
+        return;
+    }
+  })
       
 }
 

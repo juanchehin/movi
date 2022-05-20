@@ -41,11 +41,11 @@ backup() {
 //   Realiza sincronizacion con drive
 // ==================================================
 
-sinc() {
+sinc(name: string,id: string) {
 
-  const url = URL_SERVICIOS + '/settings/drive';
+  let url = URL_SERVICIOS + '/settings/drive/' + name + '/' + id;
 
-  return this.http.get (url,
+  return this.http.get(url,
     {
       headers: {
         token: this.personaService.token

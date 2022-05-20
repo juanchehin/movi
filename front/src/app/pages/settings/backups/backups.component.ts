@@ -66,23 +66,24 @@ cambiarDesde( valor: number ) {
 
   }
 
-  // ==================================================
+// ==================================================
 //    Sincronizacion con Google Drive
 // ==================================================
 
-sinc() {
+sinc(name: string,id: string) {
 
-  this.settingsService.backup( )
+  this.settingsService.sinc(name,id )
   .subscribe( (resp: any) => {
 
     if ( resp.Mensaje === 'Ok') {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Backup realizado con exito',
+        title: 'Sincronizacion realizado con exito',
         showConfirmButton: false,
         timer: 2000
       });
+      this.cargarBackups();
     } else {
           Swal.fire({
             icon: 'error',
@@ -126,6 +127,7 @@ backup() {
             showConfirmButton: false,
             timer: 2000
           });
+          this.cargarBackups();
         } else {
               Swal.fire({
                 icon: 'error',
