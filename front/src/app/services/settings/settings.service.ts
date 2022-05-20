@@ -54,5 +54,25 @@ sinc() {
 
 }
 
+// ==================================================
+//  Lista los backups realizados
+// ==================================================
+listarBackups( desde: number ) {
+
+  console.log('entra en listarBackups');
+
+  let url = URL_SERVICIOS + '/settings/listar/' + desde;
+
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.get(
+    url, {
+      headers: {
+        token: this.personaService.token
+      }
+    }
+);
+
+}
 
 }

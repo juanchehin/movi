@@ -38,6 +38,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { HistoricoComponent } from './asistencias/historico.component';
 import { FotografiaComponent } from './personas/clientes/fotografia.component';
 import { SettingsComponent } from './settings/settings.component';
+import { BackupsComponent } from './settings/backups/backups.component';
 
 
 
@@ -72,7 +73,8 @@ import { SettingsComponent } from './settings/settings.component';
         AsistenciasComponent,
         GraficasComponent,
         DashboardComponent,
-        SettingsComponent
+        SettingsComponent,
+        BackupsComponent
     ],
     exports: [
         PagesComponent,

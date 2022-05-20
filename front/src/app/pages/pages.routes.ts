@@ -41,7 +41,9 @@ import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { ProfesionalAdminGuard } from '../services/guards/profesionalAdmin.guard';
 import { HistoricoComponent } from './asistencias/historico.component';
+// Settings
 import { SettingsComponent } from './settings/settings.component';
+import { BackupsComponent } from './settings/backups/backups.component';
 
 const pagesRoutes: Routes = [
     {
@@ -62,6 +64,7 @@ const pagesRoutes: Routes = [
             { path: 'mantenimiento/plan', component: PlanComponent },
             // Settings
             { path: 'settings', component: SettingsComponent },
+            { path: 'settings/backups', component: BackupsComponent },
             { path: '', redirectTo: 'principal', pathMatch: 'full' }
         ]
     },

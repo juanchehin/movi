@@ -13,6 +13,7 @@ class SettingsRoutes {
     config(): void {
         this.router.get('/backup',mdAutenticacion.verificaToken, settingsController.backup);
         this.router.get('/drive', settingsController.sinc);
+        this.router.get('/listar/:desde', settingsController.listarBackups);
     }
 
 }

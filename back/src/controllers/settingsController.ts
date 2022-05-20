@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import mysqldump from 'mysqldump';
 import keys from '../keys';
+import pool from '../database';
+
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
@@ -22,7 +24,7 @@ public async backup(req: Request, res: Response) {
                 password: keys.database.password!,
                 database: keys.database.database!,
             },
-            dumpToFile: `./movi-${dateTime.toISOString().slice(0, 10)}.sql`,
+            dumpToFile: `./backup/movi-${dateTime.toISOString().slice(0, 10)}.sql`,
         });
         res.json({ Mensaje: 'Ok' });
     }
@@ -38,7 +40,7 @@ public async backup(req: Request, res: Response) {
 // ==================================================
 public async sinc(req: Request, res: Response) {
 
-    // If modifying these scopes, delete token.json.
+// If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive'];
 const TOKEN_PATH = 'token.json';
 /**
@@ -121,6 +123,22 @@ function authorize(credentials: any, callback: any) {
       
 }
 
+// ==================================================
+//        Lista todos los backups
+// ==================================================
+
+public async listarBackups(req: Request, res: Response): Promise<void> {
+
+  var desde = req.query.desde || 0;
+
+  pool.query(`call bsp_listar_backups('${desde}')`, function(err: any, result: any, fields: any){
+      if(err){
+          console.log("error", err);
+          return;
+      }
+      res.json(result);
+  })
+}
 
 }
 
