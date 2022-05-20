@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import mysqldump from 'mysqldump';
+import keys from '../keys';
 
 class SettingsController {
 
@@ -11,10 +12,10 @@ public async backup(req: Request, res: Response) {
     try{
         await mysqldump({
             connection: {
-                host: 'localhost',
-                user: 'root',
-                password: 'a',
-                database: 'movi',
+                host: keys.database.host,
+                user: keys.database.user!,
+                password: keys.database.password!,
+                database: keys.database.database!,
             },
             dumpToFile: './movi.sql',
         });
@@ -29,6 +30,7 @@ public async backup(req: Request, res: Response) {
     
     
 }
+
 
 }
 

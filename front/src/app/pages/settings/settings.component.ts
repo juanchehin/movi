@@ -45,10 +45,25 @@ backup() {
       .subscribe( (resp: any) => {
         console.log("resp en settings es : ",resp)
 
-        return;
+        if ( resp.Mensaje === 'Ok') {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Backup realizado con exito',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Hubo un problema al cargar',
+                text: resp.Mensaje
+              });
+            }
+          return;
+
       });
 
-      // this.planService.backup();
     }
   })
 }
