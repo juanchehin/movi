@@ -9,6 +9,8 @@ class SettingsController {
 // ==================================================
 public async backup(req: Request, res: Response) {
 
+    let dateTime = new Date();
+    
     try{
         await mysqldump({
             connection: {
@@ -17,7 +19,7 @@ public async backup(req: Request, res: Response) {
                 password: keys.database.password!,
                 database: keys.database.database!,
             },
-            dumpToFile: './movi.sql',
+            dumpToFile: `./movi-${dateTime.toISOString().slice(0, 10)}.sql`,
         });
         res.json({ Mensaje: 'Ok' });
     }
