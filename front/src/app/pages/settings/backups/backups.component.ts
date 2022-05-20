@@ -74,7 +74,6 @@ sinc() {
 
   this.settingsService.backup( )
   .subscribe( (resp: any) => {
-    console.log("resp en backups es : ",resp)
 
     if ( resp.Mensaje === 'Ok') {
       Swal.fire({
@@ -114,12 +113,10 @@ backup() {
   })
   .then( confirmar => {
 
-    if (confirmar) {
-      console.log("pasa confirmar")
+    if (confirmar.value) {
 
       this.settingsService.backup( )
       .subscribe( (resp: any) => {
-        console.log("resp en settings es : ",resp)
 
         if ( resp.Mensaje === 'Ok') {
           Swal.fire({
