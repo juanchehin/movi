@@ -15,27 +15,50 @@ class SettingsController {
 public async backup(req: Request, res: Response) {
 
     let dateTime = new Date();
-    let name = `movi-${dateTime.toISOString().slice(0, 10)}.sql`;
-    
+    let nameBackup = `movi-${dateTime.toISOString().slice(0, 10)}.sql`;
+    var dir = `./backup/${dateTime.toISOString().slice(0, 10)}`;
+
     try{
+
+        // Creo una carpeta con la fecha de hoy
+        if (!fs.existsSync(dir)){
+          fs.mkdirSync(dir, { recursive: true });
+        }
+    
+        // Creo y almaceno el backup de la BD
         await mysqldump({
-            connection: {
-                host: keys.database.host,
-                user: keys.database.user!,
-                password: keys.database.password!,
-                database: keys.database.database!,
-            },
-            dumpToFile: `./backup/${name}`
+          connection: {
+              host: keys.database.host,
+              user: keys.database.user!,
+              password: keys.database.password!,
+              database: keys.database.database!,
+          },
+          dumpToFile: `${dir}/${nameBackup}`
         });
 
-        // Cargo un nuevo Backup en BD
-        pool.query(`call bsp_alta_backup('${name}')`, function(err: any, result: any, fields: any){
+        // Creo el backup de las configuraciones
+        pool.query(`call bsp_dame_config_db()`, function(err: any, result: any){
+          if(err){
+              console.log("error : ", err);
+              res.json({ Mensaje: 'Error' });
+              return;
+          }
+          
+          fs.appendFile(`${dir}/MySQLCurrentSettings.json`, JSON.stringify(result), function (err: any) {
+            if (err) throw err;
+            console.log('File is created successfully.');
+          });
+          // Almacenar la data en el archivo json
+          // Guardar el archivo
+        })
+
+        // Agrego el registro a la BD
+        pool.query(`call bsp_alta_backup('${nameBackup}')`, function(err: any, result: any, fields: any){
           if(err){
               console.log("error", err);
               res.json({ Mensaje: 'Error' });
               return;
           }
-          // res.json(result);
         })
 
         res.json({ Mensaje: 'Ok' });
