@@ -11,9 +11,10 @@ export class BackupsComponent implements OnInit {
 
   backups: any;
   desde = 0;
+  index: any;
 
   totalBackups = 0;
-  cargando = true;
+  cargando = false;
 
   constructor(
     public settingsService: SettingsService
@@ -45,32 +46,16 @@ cargarBackups() {
 
   }
 
-// ==================================================
-//        Cambio de valor
-// ==================================================
 
-cambiarDesde( valor: number ) {
-
-    const desde = this.desde + valor;
-
-    if ( desde >= this.totalBackups ) {
-      return;
-    }
-
-    if ( desde < 0 ) {
-      return;
-    }
-
-    this.desde += valor;
-    this.cargarBackups();
-
-  }
 
 // ==================================================
 //    Sincronizacion con Google Drive
 // ==================================================
 
-sinc(name: string,id: string) {
+sinc(name: string,id: string,pIndex: any) {
+
+  this.cargando = true;
+  this.index = pIndex;
 
   this.settingsService.sinc(name,id )
   .subscribe( (resp: any) => {
@@ -143,6 +128,25 @@ backup() {
   })
 }
 
+// ==================================================
+//        Cambio de valor
+// ==================================================
 
+cambiarDesde( valor: number ) {
+
+  const desde = this.desde + valor;
+
+  if ( desde >= this.totalBackups ) {
+    return;
+  }
+
+  if ( desde < 0 ) {
+    return;
+  }
+
+  this.desde += valor;
+  this.cargarBackups();
+
+}
 
 }

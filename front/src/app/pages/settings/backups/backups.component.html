@@ -42,7 +42,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let backup of backups">
+                        <tr *ngFor="let backup of backups;let indexOfelement=index;">
                             <td>
                                 {{ backup.Nombre }}
                             </td>
@@ -51,11 +51,14 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
 
-                                    <button [disabled]="backup.FechaSinc === 'NULL'" (click)="sinc(backup.Nombre,backup.IdBackup)" class="btn btn-success" title="sincronizar">
+                                    <button *ngIf="!(indexOfelement == index)" [disabled]="backup.FechaSinc !== 'NULL'" (click)="sinc(backup.Nombre,backup.IdBackup,indexOfelement)" class="btn btn-success" title="sincronizar">
                                         <i class="material-icons">
                                         backup
                                         </i>
                                     </button>
+                                </div>
+                                <div *ngIf="indexOfelement == index" class="spinner-border text-success" role="status">
+                                    <span class="visually-hidden"></span>
                                 </div>
                             </td>
                         </tr>

@@ -196,3 +196,5 @@ back/.pnp.*
 
 back/build
 back/backup/*
+back/credentials.json
+back/token.json
