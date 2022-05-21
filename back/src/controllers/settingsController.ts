@@ -27,10 +27,8 @@ public async backup(req: Request, res: Response) {
           return;
       }
     
-      // console.log("result es : ", result[0][0].Id);
-      dir = `./backup/${result[0][0].Id}-${dateTime.toISOString().slice(0, 10)}`;
+      dir = `./backup/${result[0][0].Id}`;
     
-        console.log("dir es : ",dir)
         // Creo una carpeta con la fecha de hoy
         if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
@@ -55,7 +53,7 @@ public async backup(req: Request, res: Response) {
               return;
           }
           
-          fs.appendFile(`${dir}/MySQLCurrentSettings.json`, JSON.stringify(result), function (err: any) {
+          fs.appendFile(`${dir}/MySQLCurrentSettings-${dateTime.toISOString().slice(0, 10)}.json`, JSON.stringify(result), function (err: any) {
             if (err) throw err;
             console.log('File is created successfully.');
           });
@@ -130,27 +128,35 @@ function authorize(credentials: any, callback: any) {
   */ 
   function uploadFile(auth: any) {
     const drive = google.drive({version: 'v3', auth});
-    const fileMetadata = {
-      'name': name
-    };
-    const media = {
-      mimeType: 'text/sql',
-      body: fs.createReadStream(`./backup/${name}`)
-    };
-    drive.files.create({
-      resource: fileMetadata,
-      media: media,
-      fields: 'id'
-    }, (err: any, file: any) => {
-      if (err) {
-        // Handle error
-        console.error(err);
-        res.json({ Mensaje: 'Error' });
-        return;
-      } else {
-        console.log('File Id: ', file.id);
-      }
-    });
+
+    // For para recorrer la carpeta
+    for (const file of fs.readdirSync(`./backup/${id}`)) {
+
+      var name = `${file}`;
+
+      const fileMetadata = {
+        'name': name,
+        parents: ['14vzso2eF0YPSRvPgXz6Ggs4xnqZtx8Gg']
+      };
+      const media = {
+        mimeType: 'text/sql',
+        body: fs.createReadStream(`./backup/${id}/${file}`)
+      };
+      drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id'
+      }, (err: any, file: any) => {
+        if (err) {
+          // Handle error
+          console.error(err);
+          res.json({ Mensaje: 'Error' });
+          return;
+        } else {
+          console.log('File Id: ', file.id);
+        }
+      });
+    }
   }
   
   fs.readFile('credentials.json', (err: any, content: any) => {
