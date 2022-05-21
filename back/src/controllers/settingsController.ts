@@ -136,7 +136,7 @@ function authorize(credentials: any, callback: any) {
 
       const fileMetadata = {
         'name': name,
-        parents: ['14vzso2eF0YPSRvPgXz6Ggs4xnqZtx8Gg']
+        parents: ['1YAsmVkpwKXwyrDd9SMx_gOF_jMfucYKm']
       };
       const media = {
         mimeType: 'text/sql',
