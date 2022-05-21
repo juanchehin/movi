@@ -40,6 +40,7 @@ cargarBackups() {
                 }
 
                 this.backups = resp[0];
+
                 this.cargando = false;
 
               });
@@ -69,6 +70,7 @@ sinc(name: string,id: string,pIndex: any) {
         timer: 2000
       });
       this.cargarBackups();
+      this.cargando = false;
     } else {
           Swal.fire({
             icon: 'error',

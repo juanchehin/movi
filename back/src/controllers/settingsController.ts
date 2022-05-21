@@ -32,6 +32,7 @@ public async backup(req: Request, res: Response) {
         pool.query(`call bsp_alta_backup('${name}')`, function(err: any, result: any, fields: any){
           if(err){
               console.log("error", err);
+              res.json({ Mensaje: 'Error' });
               return;
           }
           // res.json(result);
@@ -122,6 +123,8 @@ function authorize(credentials: any, callback: any) {
       if (err) {
         // Handle error
         console.error(err);
+        res.json({ Mensaje: 'Error' });
+        return;
       } else {
         console.log('File Id: ', file.id);
       }
@@ -138,9 +141,12 @@ function authorize(credentials: any, callback: any) {
   pool.query(`call bsp_backup_sinc('${id}')`, function(err: any, result: any, fields: any){
     if(err){
         console.log("error", err);
+        res.json({ Mensaje: 'Error' });
         return;
     }
   })
+
+  res.json({ Mensaje: 'Ok' });
       
 }
 
