@@ -16,17 +16,28 @@ public async backup(req: Request, res: Response) {
 
     let dateTime = new Date();
     let nameBackup = `movi-${dateTime.toISOString().slice(0, 10)}.sql`;
-    var dir = `./backup/${dateTime.toISOString().slice(0, 10)}`;
+    var dir: any;
 
     try{
-
+     // Agrego el registro a la BD
+     pool.query(`call bsp_alta_backup('${nameBackup}')`, function(err: any, result: any, fields: any){
+      if(err){
+          console.log("error", err);
+          res.json({ Mensaje: 'Error' });
+          return;
+      }
+    
+      // console.log("result es : ", result[0][0].Id);
+      dir = `./backup/${result[0][0].Id}-${dateTime.toISOString().slice(0, 10)}`;
+    
+        console.log("dir es : ",dir)
         // Creo una carpeta con la fecha de hoy
         if (!fs.existsSync(dir)){
           fs.mkdirSync(dir, { recursive: true });
         }
     
         // Creo y almaceno el backup de la BD
-        await mysqldump({
+        mysqldump({
           connection: {
               host: keys.database.host,
               user: keys.database.user!,
@@ -48,25 +59,13 @@ public async backup(req: Request, res: Response) {
             if (err) throw err;
             console.log('File is created successfully.');
           });
-          // Almacenar la data en el archivo json
-          // Guardar el archivo
         })
-
-        // Agrego el registro a la BD
-        pool.query(`call bsp_alta_backup('${nameBackup}')`, function(err: any, result: any, fields: any){
-          if(err){
-              console.log("error", err);
-              res.json({ Mensaje: 'Error' });
-              return;
-          }
-        })
-
         res.json({ Mensaje: 'Ok' });
+      })
     }
     catch{
         res.json({ Mensaje: 'Error' });
     }
-   
 }
 
 // ==================================================
