@@ -192,3 +192,8 @@ back/.yarn/install-state.gz
 back/.pnp.*
 
 back/build
+back/backup/*
+uploads
+back/credentials.json
+back/token.json
+

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PersonaService } from 'src/app/services/service.index';
-import {NgxPrintModule} from 'ngx-print';
+// import {NgxPrintModule} from 'ngx-print';
 
 @Component({
   selector: 'app-carnet',

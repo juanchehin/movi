@@ -46,8 +46,9 @@ import { AsistenciasComponent } from './asistencias/asistencias.component';
 import { HistoricoComponent } from './asistencias/historico.component';
 import { CarnetComponent } from './carnet/carnet.component';
 
-import { QRCodeModule } from 'angularx-qrcode';
-import {NgxPrintModule} from 'ngx-print';
+// import { QRCodeModule } from 'angularx-qrcode';
+// import {NgxPrintModule} from 'ngx-print';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -79,7 +80,7 @@ import {NgxPrintModule} from 'ngx-print';
         // Otros
         AsistenciasComponent,
         GraficasComponent,
-        DashboardComponent,
+        // DashboardComponent,
         // Carnet socio
         CarnetComponent,
 
@@ -91,8 +92,9 @@ import {NgxPrintModule} from 'ngx-print';
     ],
     imports: [
         // WebcamModule,
-        NgxPrintModule,
-        QRCodeModule,
+        RouterModule,
+        // NgxPrintModule,
+        // QRCodeModule,
         SharedModule,
         // SelectModule,
         PAGES_ROUTES,
