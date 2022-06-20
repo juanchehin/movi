@@ -17,14 +17,14 @@
                     <p class="card-text">DNI : {{Documento}}</p>
                 </div>
                 <div class="col-md-4">
-                    <!-- <qrcode [qrdata]="'Documento'" [width]="170" [errorCorrectionLevel]="'M'"></qrcode> -->
+                    <qrcode [qrdata]="'Documento'" [width]="170" [errorCorrectionLevel]="'M'"></qrcode>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="d-grid gap-2">
-        <button class="btn btn-success" type="button" printSectionId="print-section" ngxPrint>
+        <button class="btn btn-success" type="button" (click)="carnet()">
           <i class="material-icons ">
             print
           </i>
