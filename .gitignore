@@ -1,6 +1,7 @@
 front/.DS_STORE
 
 front/.angular
+front/.vsc
 
 front/dist/
 front/bazel-out
