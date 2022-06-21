@@ -64,19 +64,55 @@ cargarDatos() {
 //        carnet
 // ==================================================
 
-carnet() {
+async carnet() {
+
 
   this.docDefinition = {
-    pageSize: 'A4',
-    pageOrientation: 'portrait',
-    watermark: { text: 'No válido como factura', color: 'red', fontSize: 20, opacity: 0.2, bold: true, italics: false },
+    content: [
+      this.Apellidos + this.Nombres,
+      {
+        image: await this.getBase64ImageFromURL(
+          "../../../assets/images/franja-movi.png"
+        )
+      },
+      { qr: this.Documento },
+    ],
 
     defaultStyle: {
-      fontSize: 10,
-      alignment: 'justify'
+      fontSize: 15,
+      bold: true
     }
   };
 
   pdfMake.createPdf(this.docDefinition).download('file.pdf');
 }
+
+// ==============================
+// Convierte a base64
+// =================================================================
+getBase64ImageFromURL(url: any) {
+  return new Promise((resolve, reject) => {
+    var img = new Image();
+    img.setAttribute("crossOrigin", "anonymous");
+
+    img.onload = () => {
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      var ctx = canvas.getContext("2d");
+      ctx!.drawImage(img, 0, 0);
+
+      var dataURL = canvas.toDataURL("image/png");
+
+      resolve(dataURL);
+    };
+
+    img.onerror = error => {
+      reject(error);
+    };
+
+    img.src = url;
+  });}
+
 }
