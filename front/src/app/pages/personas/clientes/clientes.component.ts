@@ -284,6 +284,7 @@ ver() {
 
 private armaPDF() {
     this.carnet_PDF = {
+      pageSize: 'C8',
       content: [
         {
           columns: [
@@ -316,8 +317,6 @@ private armaPDF() {
         columnGap: 20
       }
     };
-
-    console.log("factura es : ",this.carnet_PDF)
 
     pdfMake.createPdf(this.carnet_PDF).open();
 
